@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="JavaSource"/>
+    <classpathentry kind="var" path="SERVERJDK_PLUGINDIR/jre/lib/rt.jar" sourcepath="SRC_14"/>
+    <classpathentry kind="var" path="WAS_PLUGINDIR/lib/j2ee.jar"/>
+    <classpathentry kind="var" path="WAS_PLUGINDIR/lib/webcontainer.jar"/>
+    <classpathentry kind="var" path="WAS_PLUGINDIR/lib/ivjejb35.jar"/>
+    <classpathentry kind="var" path="WAS_PLUGINDIR/lib/websphere.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-digester.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-fileupload.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-validator.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/FastObjects_j1_JDO.jar"/>
+    <classpathentry kind="lib" path="WebContent/WEB-INF/lib/jdo.jar"/>
+    <classpathentry kind="lib" path="C:/j2sdk1.4.2_04/src.zip"/>
+    <classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
+</classpath>

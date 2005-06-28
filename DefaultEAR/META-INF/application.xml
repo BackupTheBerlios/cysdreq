@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" "http://java.sun.com/j2ee/dtds/application_1_2.dtd">
+<application id="Application_ID">
+	<display-name>DefaultEAR</display-name>
+	<module id="WebModule_1119104345453">
+		<web>
+			<web-uri>Cysdreq_UI.war</web-uri>
+			<context-root>Cysdreq_UI</context-root>
+		</web>
+	</module>
+	<module id="WebModule_1119571050140">
+		<web>
+			<web-uri>struts-example.war</web-uri>
+			<context-root>struts-example</context-root>
+		</web>
+	</module>
+	<module id="WebModule_1119572552953">
+		<web>
+			<web-uri>struts-template.war</web-uri>
+			<context-root>struts-template</context-root>
+		</web>
+	</module>
+</application>

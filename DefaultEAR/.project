@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>DefaultEAR</name>
+	<comment></comment>
+	<projects>
+		<project>struts-example</project>
+		<project>Cysdreq_UI</project>
+		<project>struts-template</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.ibm.etools.validation.validationbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.ibm.etools.j2ee.EARNature</nature>
+	</natures>
+</projectDescription>

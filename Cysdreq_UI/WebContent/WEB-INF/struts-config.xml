@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+                               "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+	<!-- Data Sources -->
+	<data-sources>
+	</data-sources>
+
+	<!-- Form Beans -->
+	<form-beans>
+		<form-bean name="logonForm" type="org.apache.struts.validator.DynaValidatorForm">
+			<form-property name="usuario" type="java.lang.String">
+			</form-property>
+			<form-property name="password" type="java.lang.String">
+			</form-property>
+		</form-bean>
+		<form-bean name="formAgregarUsuario" type="cysdreq_ui.forms.FormAgregarUsuario">
+		</form-bean>
+	</form-beans>
+
+	<!-- Global Exceptions -->
+	<global-exceptions>
+	</global-exceptions>
+
+	<!-- Global Forwards -->
+	<global-forwards>
+		<forward name="globalSuccess" path="/operacionExitosa.jsp">
+		</forward>
+	</global-forwards>
+
+	<!-- Action Mappings -->
+	<action-mappings>
+		<action name="logonForm" path="/logon" scope="session" type="cysdreq_ui.actions.LogonAction" input="logon">
+			<forward name="success" path="/index.jsp" redirect="false">
+			</forward>
+			<forward name="error" path="/logon.jsp">
+			</forward>
+		</action>
+		<action name="formAgregarUsuario" path="/agregarUsuario" scope="request" type="cysdreq_ui.actions.AgregarUsuarioAction" input="agregarUsuario">
+			<forward name="success" redirect="false" path="/agregarUsuario.jsp">
+			</forward>
+			<forward name="error" redirect="false" path="/agregarUsuario.jsp">
+			</forward>
+		</action>
+	</action-mappings>
+
+	<!-- Message Resources -->
+	<message-resources parameter="cysdreq_ui.resources.ApplicationResources" null="false">
+	</message-resources>
+
+</struts-config>
