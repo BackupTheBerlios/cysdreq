@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo SYSTEM "file:/javax/jdo/jdo.dtd">
+<jdo>
+  <package name="com.cysdreq.acciones">
+    <class name="Accion" requires-extent="true" identity-type="datastore"/>
+    <class name="TipoAccion" requires-extent="true" identity-type="datastore"/>
+  </package>
+  <package name="com.cysdreq.acciones.proyecto">
+    <class name="AgregarMiembro" requires-extent="true" identity-type="datastore"/>
+    <class name="AgregarRequerimiento" requires-extent="true" identity-type="datastore"/>
+    <class name="AgregarRolProyecto" requires-extent="true" identity-type="datastore"/>
+    <class name="AgregarTipoRequerimiento" requires-extent="true" identity-type="datastore"/>
+  </package>
+  <package name="com.cysdreq.acciones.sistema">
+    <class name="AgregarProyecto" requires-extent="true" identity-type="datastore"/>
+    <class name="AgregarRolSistema" requires-extent="true" identity-type="datastore"/>
+    <class name="AgregarUsuario" requires-extent="true" identity-type="datastore"/>
+  </package>
+  <package name="com.cysdreq.modelo">
+    <class name="Cysdreq" requires-extent="true" identity-type="datastore"/>
+    <class name="Usuario" requires-extent="true" identity-type="datastore"/>
+    <class name="Miembro" requires-extent="true" identity-type="datastore"/>
+    <class name="Proyecto" requires-extent="true" identity-type="datastore"/>
+    <class name="Rol" requires-extent="true" identity-type="datastore"/>
+    <class name="HistoriaObjeto" requires-extent="true" identity-type="datastore"/>
+  </package>
+  <package name="com.cysdreq.modelo.flow">
+    <class name="Estado" requires-extent="true" identity-type="datastore"/>
+    <class name="TipoEstado" requires-extent="true" identity-type="datastore"/>
+    <class name="Transicion" requires-extent="true" identity-type="datastore"/>
+  </package>
+  <package name="com.cysdreq.modelo.req">
+    <class name="Requerimiento" requires-extent="true" identity-type="datastore"/>
+    <class name="Propiedad" requires-extent="true" identity-type="datastore"/>
+    <class name="TipoPropiedad" requires-extent="true" identity-type="datastore"/>
+    <class name="TipoRequerimiento" requires-extent="true" identity-type="datastore"/>
+  </package>
+</jdo>

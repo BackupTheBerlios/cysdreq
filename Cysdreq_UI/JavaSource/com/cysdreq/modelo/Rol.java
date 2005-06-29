@@ -21,6 +21,13 @@ public class Rol {
 	/**
 	 * 
 	 */
+	public Rol() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Rol(String nombre, ArrayList tiposAcciones) {
 		super();
 		this.setNombre(nombre);

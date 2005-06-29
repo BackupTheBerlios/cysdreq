@@ -15,6 +15,13 @@ public class Propiedad {
 	/**
 	 * 
 	 */
+	public Propiedad() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Propiedad(TipoPropiedad tipo) {
 		super();
 		this.setTipo(tipo);

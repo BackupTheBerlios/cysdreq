@@ -90,17 +90,17 @@ public final class Cysdreq {
 
 	public void ejecutarAccion(TipoAccion tipo, Object receptor, HashMap parametros) {
 		Accion a = new Accion(tipo, receptor, parametros);
-//		agregarAccionAHistorial(receptor, a);
+		agregarAccionAHistorial(receptor, a);
 		a.ejecutar();
 	}
 
 	private void agregarAccionAHistorial(Object receptor, Accion accion) {
-		ArrayList list = (ArrayList) getHistorialAcciones().get(receptor);
-		if (list == null) {
-			list = new ArrayList();
+		HistoriaObjeto historiaObj = (HistoriaObjeto) getHistorialAcciones().get(receptor);
+		if (historiaObj == null) {
+			historiaObj = new HistoriaObjeto(receptor);
 		}
-		list.add(accion);
-		getHistorialAcciones().put(receptor, list);
+		historiaObj.getHistoria().add(accion);
+		getHistorialAcciones().put(receptor, historiaObj);
 	}
 
 	public void agregarUsuario(Usuario usuario) {

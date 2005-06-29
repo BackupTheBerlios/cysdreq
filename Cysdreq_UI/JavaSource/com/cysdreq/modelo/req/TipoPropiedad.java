@@ -14,6 +14,13 @@ public class TipoPropiedad {
 	/**
 	 * 
 	 */
+	public TipoPropiedad() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public TipoPropiedad(String nombre) {
 		super();
 		this.setNombre(nombre);

@@ -48,7 +48,7 @@ public class AgregarUsuarioAction extends Action {
 			params.put("usuario", formAgregarUsuario.getUsuario());
 			params.put("password", formAgregarUsuario.getPassword());
 			cysdreq.ejecutarAccion(AgregarUsuario.getInstance(), cysdreq, params);
-
+			
 			SessionManager.commit();			
 
 		} catch (Throwable e) {

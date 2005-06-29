@@ -20,6 +20,13 @@ public class Miembro {
 	/**
 	 * 
 	 */
+	public Miembro() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Miembro(Usuario usuario, ArrayList roles) {
 		super();
 		this.setUsuario(usuario);

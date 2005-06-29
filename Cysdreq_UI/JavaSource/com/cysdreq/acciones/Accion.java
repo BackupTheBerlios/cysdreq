@@ -18,6 +18,13 @@ public class Accion {
 	/**
 	 * 
 	 */
+	public Accion() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Accion(TipoAccion tipo, Object receptor, HashMap parametros) {
 		super();
 		setTipo(tipo);

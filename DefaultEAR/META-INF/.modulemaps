@@ -3,10 +3,10 @@
   <mappings xmi:id="ModuleMapping_1119104345453" projectName="Cysdreq_UI">
     <module xmi:type="application:WebModule" href="META-INF/application.xml#WebModule_1119104345453"/>
   </mappings>
-  <mappings xmi:id="ModuleMapping_1119571050140" projectName="struts-example">
-    <module xmi:type="application:WebModule" href="META-INF/application.xml#WebModule_1119571050140"/>
-  </mappings>
   <mappings xmi:id="ModuleMapping_1119572552953" projectName="struts-template">
     <module xmi:type="application:WebModule" href="META-INF/application.xml#WebModule_1119572552953"/>
+  </mappings>
+  <mappings xmi:id="ModuleMapping_1120008676802" projectName="struts-example">
+    <module xmi:type="application:WebModule" href="META-INF/application.xml#WebModule_1120008676802"/>
   </mappings>
 </modulemap:EARProjectMap>

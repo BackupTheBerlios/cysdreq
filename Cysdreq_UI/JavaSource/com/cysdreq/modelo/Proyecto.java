@@ -23,6 +23,13 @@ public class Proyecto {
 	/**
 	 * 
 	 */
+	public Proyecto() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Proyecto(String nombre) {
 		super();
 		this.setNombre(nombre);

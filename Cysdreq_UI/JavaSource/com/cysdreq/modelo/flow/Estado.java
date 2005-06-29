@@ -26,6 +26,13 @@ public class Estado {
 	/**
 	 * 
 	 */
+	public Estado() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public Estado(TipoEstado tipo,
 				  Miembro responsable,
 				  ArrayList propiedades) {

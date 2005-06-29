@@ -8,16 +8,16 @@
 			<context-root>Cysdreq_UI</context-root>
 		</web>
 	</module>
-	<module id="WebModule_1119571050140">
-		<web>
-			<web-uri>struts-example.war</web-uri>
-			<context-root>struts-example</context-root>
-		</web>
-	</module>
 	<module id="WebModule_1119572552953">
 		<web>
 			<web-uri>struts-template.war</web-uri>
 			<context-root>struts-template</context-root>
+		</web>
+	</module>
+	<module id="WebModule_1120008676802">
+		<web>
+			<web-uri>struts-example1.war</web-uri>
+			<context-root>struts-example</context-root>
 		</web>
 	</module>
 </application>

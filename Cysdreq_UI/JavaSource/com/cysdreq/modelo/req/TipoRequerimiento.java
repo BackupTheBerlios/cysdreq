@@ -24,6 +24,13 @@ public class TipoRequerimiento {
 	/**
 	 * 
 	 */
+	public TipoRequerimiento() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public TipoRequerimiento(String nombre,
 							 ArrayList tiposDeEstados,
 							 TipoEstado estadoInicial,

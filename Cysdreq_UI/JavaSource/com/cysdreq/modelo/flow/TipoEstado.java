@@ -22,6 +22,13 @@ public class TipoEstado {
 	/**
 	 * 
 	 */
+	public TipoEstado() {
+		super();
+	}
+
+	/**
+	 * 
+	 */
 	public TipoEstado(String nombre) {
 		super();
 		this.setNombre(nombre);
