@@ -18,6 +18,10 @@
 		</form-bean>
 		<form-bean name="formAgregarUsuario" type="cysdreq_ui.forms.FormAgregarUsuario">
 		</form-bean>
+		<form-bean name="formAgregarProyecto" type="cysdreq_ui.forms.FormAgregarProyecto">
+		</form-bean>
+		<form-bean name="formAgregarRolSistema" type="cysdreq_ui.forms.FormAgregarRolSistema">
+		</form-bean>
 	</form-beans>
 
 	<!-- Global Exceptions -->
@@ -32,16 +36,22 @@
 
 	<!-- Action Mappings -->
 	<action-mappings>
-		<action name="logonForm" path="/logon" scope="session" type="cysdreq_ui.actions.LogonAction" input="logon">
+		<action name="logonForm" path="/logon" scope="session" type="cysdreq_ui.actions.LogonAction" input="/logon.jsp">
 			<forward name="success" path="/index.jsp" redirect="false">
 			</forward>
 			<forward name="error" path="/logon.jsp">
 			</forward>
 		</action>
-		<action name="formAgregarUsuario" path="/agregarUsuario" scope="request" type="cysdreq_ui.actions.AgregarUsuarioAction" input="agregarUsuario">
-			<forward name="success" redirect="false" path="/agregarUsuario.jsp">
-			</forward>
+		<action name="formAgregarUsuario" path="/agregarUsuario" scope="request" type="cysdreq_ui.actions.AgregarUsuarioAction" input="/agregarUsuario.jsp">
 			<forward name="error" redirect="false" path="/agregarUsuario.jsp">
+			</forward>
+		</action>
+		<action name="formAgregarProyecto" path="/agregarProyecto" scope="request" type="cysdreq_ui.actions.AgregarProyectoAction" input="/agregarProyecto.jsp">
+			<forward name="error" path="/agregarProyecto.jsp">
+			</forward>
+		</action>
+		<action name="formAgregarRolSistema" path="/agregarRolSistema" scope="request" type="cysdreq_ui.actions.AgregarRolSistemaAction" input="/agregarRolSistema.jsp">
+			<forward name="error" path="/agregarRolSistema.jsp">
 			</forward>
 		</action>
 	</action-mappings>

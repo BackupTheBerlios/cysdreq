@@ -49,14 +49,6 @@ contentType="text/html; charset=ISO-8859-1"
 					<td width="50%" align="right">Nombre:</td>
 				    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
 				</tr>
-				<tr>
-				    <td width="50%" align="right">Usuario:</td>
-				    <td width="50%" align="left"><html:text property="usuario" size="50" maxlength="150"/></td>
-				</tr>
-				<tr>
-				    <td width="50%" align="right">Password:</td>
-				    <td width="50%" align="left"><html:text property="password" size="50" maxlength="150"/></td>
-				</tr>
 				
 				<tr>
 				    <td width="50%" align="center" colspan="2"><html:submit>Agregar</html:submit></td>

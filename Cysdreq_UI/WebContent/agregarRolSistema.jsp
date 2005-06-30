@@ -35,22 +35,18 @@
 					<TR height="90%">
 						<TD>
 						    <html:errors/>
-						    <html:form action="/agregarUsuario.do">
+						    <html:form action="/agregarRolSistema.do">
 							<table height="300" border="0" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
 							<tr>
-								<td colspan="2">Agregar Usuario</td>
+								<td colspan="2">Agregar Rol de Sistema</td>
 							</tr>
 							<tr>
 								<td width="50%" align="right">Nombre:</td>
 							    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
 							</tr>
 							<tr>
-							    <td width="50%" align="right">Usuario:</td>
-							    <td width="50%" align="left"><html:text property="usuario" size="50" maxlength="150"/></td>
-							</tr>
-							<tr>
-							    <td width="50%" align="right">Password:</td>
-							    <td width="50%" align="left"><html:text property="password" size="50" maxlength="150"/></td>
+							    <td width="50%" align="right">Acciones:</td>
+							    <td width="50%" align="left"><html:select property="acciones" size="10" multiple="true" value="prueba"/></td>
 							</tr>
 							
 							<tr>

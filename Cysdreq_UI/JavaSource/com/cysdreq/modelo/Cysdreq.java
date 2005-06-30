@@ -98,9 +98,9 @@ public final class Cysdreq {
 		HistoriaObjeto historiaObj = (HistoriaObjeto) getHistorialAcciones().get(receptor);
 		if (historiaObj == null) {
 			historiaObj = new HistoriaObjeto(receptor);
+			getHistorialAcciones().put(receptor, historiaObj);
 		}
 		historiaObj.getHistoria().add(accion);
-		getHistorialAcciones().put(receptor, historiaObj);
 	}
 
 	public void agregarUsuario(Usuario usuario) {

@@ -9,4 +9,9 @@
 			<html:link page="/agregarProyecto.jsp">Agregar Proyecto</html:link>
 		</TD>
 	</TR>
+	<TR>
+		<TD>
+			<html:link page="/agregarRolSistema.jsp">Agregar Rol</html:link>
+		</TD>
+	</TR>
 </TABLE>
