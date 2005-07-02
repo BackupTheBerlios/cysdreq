@@ -17,7 +17,8 @@ public class UserBean {
 	private String username;
 	private String password;
 	private String longUsername;
-
+	private String nombreProyecto;
+	
 	/**
 	 * 
 	 */
@@ -65,6 +66,20 @@ public class UserBean {
 	 */
 	public void setUsername(String string) {
 		username = string;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getNombreProyecto() {
+		return nombreProyecto;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setNombreProyecto(String string) {
+		nombreProyecto = string;
 	}
 
 }

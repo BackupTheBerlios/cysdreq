@@ -14,4 +14,18 @@
 			<html:link page="/agregarRolSistema.jsp">Agregar Rol</html:link>
 		</TD>
 	</TR>
+	<TR>
+		<TD border=1><BR>
+		</TD>
+	</TR>
+	<TR>	
+		<TD>
+			<html:link page="/ingresarAProyecto.jsp">Ingresar a un proyecto</html:link>
+		</TD>
+	</TR>
+	<TR>	
+		<TD>
+			<html:link page="/agregarMiembro.jsp">Agregar un miembro al proyecto</html:link>
+		</TD>
+	</TR>	
 </TABLE>

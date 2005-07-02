@@ -135,4 +135,16 @@ public final class Cysdreq {
 		
 		return null;
 	}
+	public Proyecto getProyecto(String nombre) {
+		Proyecto proyecto = null;
+		Iterator i = this.getProyectos().iterator();
+		while (i.hasNext()) {
+			proyecto = (Proyecto) i.next();
+			if (proyecto.getNombre().equals(nombre)){
+				return proyecto;
+			}
+		}
+		
+		return null;
+	}
 }
