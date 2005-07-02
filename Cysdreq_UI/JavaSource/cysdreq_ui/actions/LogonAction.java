@@ -25,7 +25,7 @@ import cysdreq_ui.bean.UserBean;
  */
 public class LogonAction extends Action {
 
-	private static final String USER_KEY = "user";
+	public static final String USER_KEY = "user";
 
 	public ActionForward execute(
 		ActionMapping mapping,
