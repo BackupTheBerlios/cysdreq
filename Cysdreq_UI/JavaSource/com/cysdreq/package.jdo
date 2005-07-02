@@ -35,4 +35,7 @@
     <class name="TipoPropiedad" requires-extent="true" identity-type="datastore"/>
     <class name="TipoRequerimiento" requires-extent="true" identity-type="datastore"/>
   </package>
+  <package name="com.cysdreq.util">
+    <class name="PersistentArrayList" requires-extent="true" identity-type="datastore"/>
+  </package>
 </jdo>

@@ -26,6 +26,7 @@ contentType="text/html; charset=ISO-8859-1"
 <BODY>
 
 <P>
+    <html:errors/>
 	<html:form action="/logon.do">
 		<TABLE border="1">
 			<TBODY>

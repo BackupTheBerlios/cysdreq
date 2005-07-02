@@ -44,16 +44,20 @@ public class LogonAction extends Action {
 			//obtiene la transacción asociada al administrador de persistencia.
 			SessionManager.beginTransaction();
 
-			Cysdreq cysdreq = (Cysdreq) PersistenceManagers.findObject(SessionManager.getSession(), SessionManager.ROOT_OBJECT_ID);
-			System.out.println("Cysdreq obtenido");
+			Cysdreq cysdreq;
+			try	{
+				cysdreq = (Cysdreq) PersistenceManagers.findObject(SessionManager.getSession(), SessionManager.ROOT_OBJECT_ID);
+				System.out.println("Cysdreq obtenido");
+			} catch (Throwable t) {
+				// Report the error using the appropriate name and ID.
+				errors.add("login", new ActionError("errors.obtenerSistema"));
+				throw t;
+			}
 
 			Usuario usuario = cysdreq.getUsuario(username, password);
 			if (usuario == null) {
-				System.out.println("NO SE ENCONTRO EL USUARIO");
-				errors.add("name", new ActionError("id"));
+				errors.add("login", new ActionError("errors.login.inexistente"));
 			} else {
-				System.out.println("SE ENCONTRO EL USUARIO");
-				
 				UserBean userBean = new UserBean();
 				userBean.setLongUsername(usuario.getNombre());
 				userBean.setUsername(usuario.getUsuario());
@@ -68,10 +72,8 @@ public class LogonAction extends Action {
 		} catch (Throwable t) {
 			SessionManager.rollback();
 			t.printStackTrace();
-			System.out.println("Error al recuperar el usuario");
 			// Report the error using the appropriate name and ID.
-			errors.add("name", new ActionError("id"));
-
+			errors.add("sistema", new ActionError("errors.errorDesconocido"));
 		}
 
 		// If a message is required, save the specified key(s)

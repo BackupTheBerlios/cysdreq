@@ -41,11 +41,11 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	protected ArrayList getRoles() {
+	public ArrayList getRoles() {
 		return roles;
 	}
 
-	protected void setRoles(ArrayList roles) {
+	public void setRoles(ArrayList roles) {
 		this.roles = roles;
 	}
 

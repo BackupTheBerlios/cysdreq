@@ -15,23 +15,13 @@ import com.cysdreq.modelo.req.TipoRequerimiento;
  * @author Daniel Nanni
  *
  */
-public class AgregarRequerimiento implements TipoAccion {
+public class AgregarRequerimiento extends TipoAccion {
 
-	private static AgregarRequerimiento instancia;
 	/**
 	 * 
 	 */
-	private AgregarRequerimiento() {
+	public AgregarRequerimiento() {
 		super();
-	}
-
-	/**
-	 * Implementación del Singleton
-	 */
-	public static AgregarRequerimiento getInstance() {
-		if (instancia == null)
-			instancia = new AgregarRequerimiento();
-		return instancia;
 	}
 
 	/* (non-Javadoc)
@@ -60,6 +50,21 @@ public class AgregarRequerimiento implements TipoAccion {
 	 */
 	public boolean esAccionSistema() {
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object tipoAccion) {
+		return (tipoAccion != null && tipoAccion instanceof AgregarRequerimiento);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		Class c = AgregarRequerimiento.class;
+		return c.getName().hashCode();
 	}
 
 }

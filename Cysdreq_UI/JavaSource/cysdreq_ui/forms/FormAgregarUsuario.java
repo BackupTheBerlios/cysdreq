@@ -89,13 +89,13 @@ public class FormAgregarUsuario extends ActionForm {
 		// adding each error to this.errors as found, e.g.
 
 		if ((nombre == null) || (nombre.length() == 0)) {
-			errors.add("nombre", new org.apache.struts.action.ActionError("error.errors.registrarUsuario.nombreVacio"));
+			errors.add("nombre", new org.apache.struts.action.ActionError("errors.registrarUsuario.nombreVacio"));
 		}
 		if ((usuario == null) || (usuario.length() == 0)) {
-			errors.add("usuario", new org.apache.struts.action.ActionError("error.errors.registrarUsuario.usuarioVacio"));
+			errors.add("usuario", new org.apache.struts.action.ActionError("errors.registrarUsuario.usuarioVacio"));
 		}
 		if ((password == null) || (password.length() == 0)) {
-			errors.add("password", new org.apache.struts.action.ActionError("error.errors.registrarUsuario.passwordVacio"));
+			errors.add("password", new org.apache.struts.action.ActionError("errors.registrarUsuario.passwordVacio"));
 		}
 		return errors;
 

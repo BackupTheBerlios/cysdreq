@@ -10,28 +10,19 @@ import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.modelo.Miembro;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.Usuario;
+import com.cysdreq.util.PersistentArrayList;
 
 /**
  * @author Daniel Nanni
  *
  */
-public class AgregarMiembro implements TipoAccion {
+public class AgregarMiembro extends TipoAccion {
 
-	private static AgregarMiembro instancia;
 	/**
 	 * 
 	 */
-	private AgregarMiembro() {
+	public AgregarMiembro() {
 		super();
-	}
-
-	/**
-	 * Implementación del Singleton
-	 */
-	public static AgregarMiembro getInstance() {
-		if (instancia == null)
-			instancia = new AgregarMiembro();
-		return instancia;
 	}
 
 	/* (non-Javadoc)
@@ -40,8 +31,8 @@ public class AgregarMiembro implements TipoAccion {
 	public void ejecutar(Object receptor, HashMap parametros) {
 		Proyecto proyecto = (Proyecto) receptor;
 		Usuario usuario = (Usuario) parametros.get("usuario");
-		ArrayList roles = (ArrayList) parametros.get("roles");
-		ArrayList copiaRoles = (ArrayList) roles.clone();
+		PersistentArrayList roles = (PersistentArrayList) parametros.get("roles");
+		ArrayList copiaRoles = (ArrayList) roles.getWrappedArrayList().clone();
 		Miembro miembro = new Miembro(usuario, copiaRoles);
 		proyecto.agregarMiembro(miembro);
 	}
@@ -59,5 +50,21 @@ public class AgregarMiembro implements TipoAccion {
 	public boolean esAccionSistema() {
 		return false;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object tipoAccion) {
+		return (tipoAccion != null && tipoAccion instanceof AgregarMiembro);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		Class c = AgregarMiembro.class;
+		return c.getName().hashCode();
+	}
+
 
 }

@@ -10,10 +10,13 @@ import java.util.HashMap;
  * @author Daniel Nanni
  *
  */
-public interface TipoAccion {
+public abstract class TipoAccion {
 
-	public void ejecutar(Object receptor, HashMap parametros);
-	public boolean esAccionProyecto();
-	public boolean esAccionSistema();
-	
+	public abstract void ejecutar(Object receptor, HashMap parametros);
+	public abstract boolean esAccionProyecto();
+	public abstract boolean esAccionSistema();
+
+	public abstract boolean equals(Object obj);
+	public abstract int hashCode();
+
 }

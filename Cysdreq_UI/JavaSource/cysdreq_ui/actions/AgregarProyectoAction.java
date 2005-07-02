@@ -44,7 +44,7 @@ public class AgregarProyectoAction extends Action {
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			HashMap params = new HashMap(1);
 			params.put("nombreProyecto", formAgregarProyecto.getNombre());
-			cysdreq.ejecutarAccion(AgregarProyecto.getInstance(), cysdreq, params);
+			cysdreq.ejecutarAccion(new AgregarProyecto(), cysdreq, params);
 			
 			SessionManager.commit();			
 		} catch (Exception e) {

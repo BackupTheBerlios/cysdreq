@@ -1,10 +1,10 @@
 package cysdreq_ui.actions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionMapping;
 import com.cysdreq.acciones.sistema.AgregarRolSistema;
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
+import com.cysdreq.util.PersistentArrayList;
 
 import cysdreq_ui.forms.FormAgregarRolSistema;
 
@@ -43,8 +44,8 @@ public class AgregarRolSistemaAction extends Action {
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			HashMap params = new HashMap(2);
 			params.put("nombreRol", formAgregarRolSistema.getNombre());
-			params.put("tiposDeAcciones", new ArrayList());
-			cysdreq.ejecutarAccion(AgregarRolSistema.getInstance(), cysdreq, params);
+			params.put("tiposDeAcciones", new PersistentArrayList());
+			cysdreq.ejecutarAccion(new AgregarRolSistema(), cysdreq, params);
 		
 			SessionManager.commit();			
 

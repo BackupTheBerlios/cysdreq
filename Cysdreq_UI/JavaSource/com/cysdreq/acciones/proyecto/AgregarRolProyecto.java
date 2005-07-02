@@ -3,34 +3,24 @@
  */
 package com.cysdreq.acciones.proyecto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.Rol;
+import com.cysdreq.util.PersistentArrayList;
 
 /**
  * @author Daniel Nanni
  *
  */
-public class AgregarRolProyecto implements TipoAccion {
+public class AgregarRolProyecto extends TipoAccion {
 
-	private static AgregarRolProyecto instancia;
 	/**
 	 * 
 	 */
-	private AgregarRolProyecto() {
+	public AgregarRolProyecto() {
 		super();
-	}
-
-	/**
-	 * Implementación del Singleton
-	 */
-	public static AgregarRolProyecto getInstance() {
-		if (instancia == null)
-			instancia = new AgregarRolProyecto();
-		return instancia;
 	}
 
 	/* (non-Javadoc)
@@ -39,9 +29,9 @@ public class AgregarRolProyecto implements TipoAccion {
 	public void ejecutar(Object receptor, HashMap parametros) {
 		Proyecto proyecto = (Proyecto) receptor;
 		String nombre = (String) parametros.get("nombreRol");
-		ArrayList tiposAcciones = (ArrayList) parametros.get("tiposDeAcciones");
+		PersistentArrayList tiposAcciones = (PersistentArrayList) parametros.get("tiposDeAcciones");
 		
-		proyecto.agregarRol(new Rol(nombre, tiposAcciones));
+		proyecto.agregarRol(new Rol(nombre, tiposAcciones.getWrappedArrayList()));
 	}
 
 	/* (non-Javadoc)
@@ -56,6 +46,21 @@ public class AgregarRolProyecto implements TipoAccion {
 	 */
 	public boolean esAccionSistema() {
 		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object tipoAccion) {
+		return (tipoAccion != null && tipoAccion instanceof AgregarRolProyecto);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		Class c = AgregarRolProyecto.class;
+		return c.getName().hashCode();
 	}
 
 }

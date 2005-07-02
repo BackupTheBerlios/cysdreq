@@ -6,9 +6,14 @@
  */
 package com.cysdreq.loader;
 
+import java.util.ArrayList;
+
 import javax.jdo.JDOUserException;
 
+import com.cysdreq.acciones.proyecto.*;
+import com.cysdreq.acciones.sistema.*;
 import com.cysdreq.modelo.Cysdreq;
+import com.cysdreq.modelo.Rol;
 import com.cysdreq.modelo.Usuario;
 import com.poet.jdo.PersistenceManagers;
 import com.poet.jdo.admin.DatabaseAdministration;
@@ -49,19 +54,17 @@ public class Loader {
 				cysdreq = Cysdreq.getInstance();
 				System.out.println("Cysdreq instanciado");
 				
-				// TODO Poner acá datos de inicialización
-				cysdreq.agregarUsuario(new Usuario("root user", "root", "nousar"));
-				System.out.println("Usuario creado");
+				// Agrega datos de inicialización
+				initBasicData(cysdreq);
 	        
-				//persiste el objeto root
+				// persiste el objeto root
 				try {
 					PersistenceManagers.makePersistent(SessionManager.getSession(), cysdreq, SessionManager.ROOT_OBJECT_ID);
-					System.out.println("Cysdreq guardado");
 				} catch (Throwable e1) {
 					e1.printStackTrace();
 					throw e1;
 				}
-				System.out.println("Guardó Cysdreq");
+				System.out.println("Cysdreq inicializado");
 			} catch (Throwable t) {
 				t.printStackTrace();
 				throw t;
@@ -70,6 +73,40 @@ public class Loader {
 		
 		//finaliza la transacción.
 		SessionManager.commit();
+	}
+
+	/**
+	 * 
+	 */
+	private static void initBasicData(Cysdreq cysdreq) {
+		// Agrega un rol de administrador al sistema
+		Rol rol = new Rol("administrador", getAcciones());
+		cysdreq.agregarRol(rol);
+
+		// Agrega un usuario rool con rol de administrador al sistema
+		Usuario usuario = new Usuario("root user", "root", "nousar");
+		ArrayList roles = new ArrayList();
+		roles.add(rol);
+		usuario.setRoles(roles);
+		cysdreq.agregarUsuario(usuario);
+
+		System.out.println("Se agregó data de inicialización básica");
+	}
+
+	/**
+	 * 
+	 */
+	private static ArrayList getAcciones() {
+		ArrayList acciones = new ArrayList();
+		acciones.add(new AgregarMiembro());
+		acciones.add(new AgregarRequerimiento());
+		acciones.add(new AgregarRolProyecto());
+		acciones.add(new AgregarTipoRequerimiento());
+		acciones.add(new AgregarProyecto());
+		acciones.add(new AgregarRolSistema());
+		acciones.add(new AgregarUsuario());
+
+		return acciones;
 	}
 
 }

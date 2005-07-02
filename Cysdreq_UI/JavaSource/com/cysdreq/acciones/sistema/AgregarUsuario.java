@@ -13,23 +13,13 @@ import com.cysdreq.modelo.Usuario;
  * @author Daniel Nanni
  *
  */
-public class AgregarUsuario implements TipoAccion {
+public class AgregarUsuario extends TipoAccion {
 
-	private static AgregarUsuario instancia;
 	/**
 	 * 
 	 */
 	public AgregarUsuario() {
 		super();
-	}
-
-	/**
-	 * Implementación del Singleton
-	 */
-	public static AgregarUsuario getInstance() {
-		if (instancia == null)
-			instancia = new AgregarUsuario();
-		return instancia;
 	}
 
 	/* (non-Javadoc)
@@ -56,6 +46,21 @@ public class AgregarUsuario implements TipoAccion {
 	 */
 	public boolean esAccionSistema() {
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object tipoAccion) {
+		return (tipoAccion != null && tipoAccion instanceof AgregarUsuario);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		Class c = AgregarUsuario.class;
+		return c.getName().hashCode();
 	}
 
 }

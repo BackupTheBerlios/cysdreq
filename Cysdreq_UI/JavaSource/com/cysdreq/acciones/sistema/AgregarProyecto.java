@@ -13,25 +13,15 @@ import com.cysdreq.modelo.Proyecto;
  * @author Daniel Nanni
  *
  */
-public class AgregarProyecto implements TipoAccion {
+public class AgregarProyecto extends TipoAccion {
 
-	private static AgregarProyecto instancia;
 	/**
 	 * 
 	 */
-	private AgregarProyecto() {
+	public AgregarProyecto() {
 		super();
 	}
 
-	/**
-	 * Implementación del Singleton
-	 */
-	public static AgregarProyecto getInstance() {
-		if (instancia == null)
-			instancia = new AgregarProyecto();
-		return instancia;
-	}
-	
 	/* (non-Javadoc)
 	 * @see com.cysdreq.acciones.TipoAccion#ejecutar(java.util.HashMap)
 	 */
@@ -48,6 +38,21 @@ public class AgregarProyecto implements TipoAccion {
 
 	public boolean esAccionSistema() {
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object tipoAccion) {
+		return (tipoAccion != null && tipoAccion instanceof AgregarProyecto);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		Class c = AgregarProyecto.class;
+		return c.getName().hashCode();
 	}
 
 }
