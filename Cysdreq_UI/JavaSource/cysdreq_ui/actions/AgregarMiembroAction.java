@@ -45,7 +45,7 @@ public class AgregarMiembroAction extends Action {
 			HashMap params = new HashMap(2);
 			params.put("usuario", formAgregarMiembro.getNombre());
 			params.put("roles", new ArrayList());
-			cysdreq.ejecutarAccion(AgregarMiembro.getInstance(), cysdreq, params);
+			cysdreq.ejecutarAccion(new AgregarMiembro(), cysdreq, params);
 			
 			SessionManager.commit();			
 

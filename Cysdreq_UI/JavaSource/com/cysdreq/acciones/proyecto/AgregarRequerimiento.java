@@ -67,4 +67,11 @@ public class AgregarRequerimiento extends TipoAccion {
 		return c.getName().hashCode();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.cysdreq.acciones.TipoAccion#getName()
+	 */
+	public String getName() {
+		return "Agregar Requerimiento";
+	}
+
 }

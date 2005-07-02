@@ -36,23 +36,27 @@
 						<TD>
 						    <html:errors/>
 						    <html:form action="/agregarRolSistema.do">
-							<table height="300" border="0" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
-							<tr>
-								<td colspan="2">Agregar Rol de Sistema</td>
-							</tr>
-							<tr>
-								<td width="50%" align="right">Nombre:</td>
-							    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
-							</tr>
-							<tr>
-							    <td width="50%" align="right">Acciones:</td>
-							    <td width="50%" align="left"><html:select property="acciones" size="10" multiple="true" value="prueba"/></td>
-							</tr>
-							
-							<tr>
-							    <td width="50%" align="center" colspan="2"><html:submit>Agregar</html:submit></td>
-							</tr>
-							</table>
+								<table height="300" border="0" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
+								<tr>
+									<td colspan="2">Agregar Rol de Sistema</td>
+								</tr>
+								<tr>
+									<td width="50%" align="right">Nombre:</td>
+								    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
+								</tr>
+								<tr>
+								    <td width="50%" align="right">Acciones:</td>
+								    <td width="50%" align="left">
+								    	<html:select property="accionesSeleccionadas" size="10" multiple="true">
+								    		<html:optionsCollection property="acciones"/>
+								    	</html:select>
+								    </td>
+								</tr>
+								
+								<tr>
+								    <td width="50%" align="center" colspan="2"><html:submit>Agregar</html:submit></td>
+								</tr>
+								</table>
 							</html:form>
 						</TD>
 					</TR>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.jdo.JDOUserException;
 
+import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.acciones.proyecto.*;
 import com.cysdreq.acciones.sistema.*;
 import com.cysdreq.modelo.Cysdreq;
@@ -66,11 +67,12 @@ public class Loader {
 				}
 				System.out.println("Cysdreq inicializado");
 			} catch (Throwable t) {
+				SessionManager.rollback();
 				t.printStackTrace();
 				throw t;
 			}
 		}
-		
+
 		//finaliza la transacción.
 		SessionManager.commit();
 	}
@@ -78,7 +80,7 @@ public class Loader {
 	/**
 	 * 
 	 */
-	private static void initBasicData(Cysdreq cysdreq) {
+	private static void initBasicData(Cysdreq cysdreq) throws Exception {
 		// Agrega un rol de administrador al sistema
 		Rol rol = new Rol("administrador", getAcciones());
 		cysdreq.agregarRol(rol);
@@ -96,7 +98,8 @@ public class Loader {
 	/**
 	 * 
 	 */
-	private static ArrayList getAcciones() {
+	private static ArrayList getAcciones() throws Exception {
+
 		ArrayList acciones = new ArrayList();
 		acciones.add(new AgregarMiembro());
 		acciones.add(new AgregarRequerimiento());

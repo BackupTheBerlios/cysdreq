@@ -1,9 +1,22 @@
 package cysdreq_ui.forms;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+
+import com.cysdreq.acciones.proyecto.AgregarMiembro;
+import com.cysdreq.acciones.proyecto.AgregarRequerimiento;
+import com.cysdreq.acciones.proyecto.AgregarRolProyecto;
+import com.cysdreq.acciones.proyecto.AgregarTipoRequerimiento;
+import com.cysdreq.acciones.sistema.AgregarProyecto;
+import com.cysdreq.acciones.sistema.AgregarRolSistema;
+import com.cysdreq.acciones.sistema.AgregarUsuario;
+
+import cysdreq_ui.bean.TipoAccionBean;
 
 /**
  * Form bean for a Struts application.
@@ -17,23 +30,23 @@ import org.apache.struts.action.ActionMapping;
  */
 public class FormAgregarRolSistema extends ActionForm {
 
-	private String[] acciones = null;
+	private String[] accionesSeleccionadas = null;
 	private String nombre = null;
 
 	/**
 	 * Get acciones
 	 * @return String[]
 	 */
-	public String[] getAcciones() {
-		return acciones;
+	public String[] getAccionesSeleccionadas() {
+		return accionesSeleccionadas;
 	}
 
 	/**
 	 * Set acciones
 	 * @param <code>String[]</code>
 	 */
-	public void setAcciones(String[] a) {
-		this.acciones = a;
+	public void setAccionesSeleccionadas(String[] a) {
+		this.accionesSeleccionadas = a;
 	}
 
 	/**
@@ -56,7 +69,7 @@ public class FormAgregarRolSistema extends ActionForm {
 
 		// Reset values are provided as samples only. Change as appropriate.
 
-		acciones = null;
+		accionesSeleccionadas = null;
 		nombre = "";
 
 	}
@@ -74,5 +87,18 @@ public class FormAgregarRolSistema extends ActionForm {
 		}
 		return errors;
 
+	}
+
+	public ArrayList getAcciones() {
+		ArrayList acciones = new ArrayList();
+		acciones.add(new TipoAccionBean(new AgregarMiembro()));
+		acciones.add(new TipoAccionBean(new AgregarRequerimiento()));
+		acciones.add(new TipoAccionBean(new AgregarRolProyecto()));
+		acciones.add(new TipoAccionBean(new AgregarTipoRequerimiento()));
+		acciones.add(new TipoAccionBean(new AgregarProyecto()));
+		acciones.add(new TipoAccionBean(new AgregarRolSistema()));
+		acciones.add(new TipoAccionBean(new AgregarUsuario()));
+
+		return acciones;
 	}
 }
