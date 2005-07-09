@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.acciones.sistema.AgregarRolSistema;
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
@@ -40,11 +41,15 @@ public class AgregarRolSistemaAction extends Action {
 		try {
 			SessionManager.beginTransaction();
 
+			String nombre = formAgregarRolSistema.getNombre();
+			
+			PersistentArrayList acciones = formAgregarRolSistema.getAccionesPersistentesSeleccionadas();
+
 			// Agrega el usuario
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			HashMap params = new HashMap(2);
-			params.put("nombreRol", formAgregarRolSistema.getNombre());
-			params.put("tiposDeAcciones", new PersistentArrayList());
+			params.put("nombreRol", nombre);
+			params.put("tiposDeAcciones", acciones);
 			cysdreq.ejecutarAccion(new AgregarRolSistema(), cysdreq, params);
 		
 			SessionManager.commit();			

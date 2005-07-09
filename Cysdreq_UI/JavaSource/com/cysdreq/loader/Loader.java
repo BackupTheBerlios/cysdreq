@@ -100,6 +100,7 @@ public class Loader {
 	 */
 	private static ArrayList getAcciones() throws Exception {
 
+		//TODO usar TipoAccionManager
 		ArrayList acciones = new ArrayList();
 		acciones.add(new AgregarMiembro());
 		acciones.add(new AgregarRequerimiento());

@@ -1,6 +1,7 @@
 package cysdreq_ui.forms;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +9,8 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
+import com.cysdreq.acciones.TipoAccion;
+import com.cysdreq.acciones.TipoAccionManager;
 import com.cysdreq.acciones.proyecto.AgregarMiembro;
 import com.cysdreq.acciones.proyecto.AgregarRequerimiento;
 import com.cysdreq.acciones.proyecto.AgregarRolProyecto;
@@ -15,6 +18,7 @@ import com.cysdreq.acciones.proyecto.AgregarTipoRequerimiento;
 import com.cysdreq.acciones.sistema.AgregarProyecto;
 import com.cysdreq.acciones.sistema.AgregarRolSistema;
 import com.cysdreq.acciones.sistema.AgregarUsuario;
+import com.cysdreq.util.PersistentArrayList;
 
 import cysdreq_ui.bean.TipoAccionBean;
 
@@ -90,14 +94,35 @@ public class FormAgregarRolSistema extends ActionForm {
 	}
 
 	public ArrayList getAcciones() {
+		
+		ArrayList tipoAcciones = TipoAccionManager.getAccionesSistema();
 		ArrayList acciones = new ArrayList();
-		acciones.add(new TipoAccionBean(new AgregarMiembro()));
-		acciones.add(new TipoAccionBean(new AgregarRequerimiento()));
-		acciones.add(new TipoAccionBean(new AgregarRolProyecto()));
-		acciones.add(new TipoAccionBean(new AgregarTipoRequerimiento()));
-		acciones.add(new TipoAccionBean(new AgregarProyecto()));
-		acciones.add(new TipoAccionBean(new AgregarRolSistema()));
-		acciones.add(new TipoAccionBean(new AgregarUsuario()));
+
+		Iterator iter = tipoAcciones.iterator();
+		while (iter.hasNext()) {
+			TipoAccion tipoAccion = (TipoAccion) iter.next();
+			
+			acciones.add(new TipoAccionBean(tipoAccion));
+		}
+
+		return acciones;
+	}
+
+	/**
+	 * @return
+	 */
+	public PersistentArrayList getAccionesPersistentesSeleccionadas() {
+		String[] accionesSeleccionadas = this.getAccionesSeleccionadas();
+			
+		PersistentArrayList acciones = new PersistentArrayList(accionesSeleccionadas.length);
+
+		// recorro las acciones y las meto en un PersistentArrayList
+		for (int i = 0; i < accionesSeleccionadas.length; i++) {
+			String nombreAccion = accionesSeleccionadas[i];
+			TipoAccion tipoAccion = TipoAccionManager.getAccionSistema(nombreAccion);
+
+			acciones.add(tipoAccion);
+		}
 
 		return acciones;
 	}
