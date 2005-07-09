@@ -28,4 +28,9 @@
 			<html:link page="/agregarMiembro.jsp">Agregar un miembro al proyecto</html:link>
 		</TD>
 	</TR>	
+	<TR>	
+		<TD>
+			<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>
+		</TD>
+	</TR>		
 </TABLE>

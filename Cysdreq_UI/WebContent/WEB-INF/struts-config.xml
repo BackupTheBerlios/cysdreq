@@ -26,6 +26,8 @@
 		</form-bean>
 		<form-bean name="formAgregarMiembro" type="cysdreq_ui.forms.FormAgregarMiembro">
 		</form-bean>
+		<form-bean name="formAgregarRolProyecto" type="cysdreq_ui.forms.FormAgregarRolProyecto">
+		</form-bean>
 	</form-beans>
 
 	<!-- Global Exceptions -->
@@ -64,6 +66,10 @@
 		</action>
 		<action name="formAgregarMiembro" path="/agregarMiembro" scope="request" type="cysdreq_ui.actions.AgregarMiembroAction" input="/agregarMiembro.jsp">
 			<forward name="error" path="/agregarMiembro.jsp">
+			</forward>
+		</action>
+		<action name="formAgregarRolProyecto" path="/agregarRolProyecto" scope="request" type="cysdreq_ui.actions.AgregarRolProyectoAction" input="/agregarRolProyecto.jsp">
+			<forward name="error" path="/agregarRolProyecto.jsp">
 			</forward>
 		</action>
 	</action-mappings>

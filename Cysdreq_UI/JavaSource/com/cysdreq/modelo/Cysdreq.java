@@ -147,4 +147,21 @@ public final class Cysdreq {
 		
 		return null;
 	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	public Usuario getUsuario(String login) {
+		Usuario usuario = null;
+		Iterator i = this.getUsuarios().iterator();
+		while (i.hasNext()) {
+			usuario = (Usuario) i.next();
+			if (usuario.getUsuario().equals(login)){
+				return usuario;
+			}
+		}
+		
+		return null;
+	}
 }
