@@ -55,13 +55,13 @@ public class Proyecto {
 		this.requerimientos = requerimientos;
 	}
 
-	protected ArrayList getRoles() {
+	public ArrayList getRoles() {
 		if (roles == null)
 			roles = new ArrayList();		
 		return roles;
 	}
 
-	protected void setRoles(ArrayList roles) {
+	public void setRoles(ArrayList roles) {
 		this.roles = roles;
 	}
 

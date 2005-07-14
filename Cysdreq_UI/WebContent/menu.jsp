@@ -32,5 +32,6 @@
 		<TD>
 			<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>
 		</TD>
-	</TR>		
+	</TR>
+
 </TABLE>
