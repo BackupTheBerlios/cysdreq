@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import javax.jdo.JDOUserException;
 
 import com.cysdreq.acciones.TipoAccion;
+import com.cysdreq.acciones.TipoAccionManager;
 import com.cysdreq.acciones.proyecto.*;
 import com.cysdreq.acciones.sistema.*;
 import com.cysdreq.modelo.Cysdreq;
+import com.cysdreq.modelo.Miembro;
+import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.Rol;
 import com.cysdreq.modelo.Usuario;
 import com.poet.jdo.PersistenceManagers;
@@ -57,7 +60,12 @@ public class Loader {
 				
 				// Agrega datos de inicialización
 				initBasicData(cysdreq);
-	        
+				
+				// TODO Sacar esto y ponerlo en una página
+				// Se puede hacer que cysdreq tenga una variable booleana indicando
+				// si ya fue inicializado o no con data de testing
+				initTestData(cysdreq);
+				
 				// persiste el objeto root
 				try {
 					PersistenceManagers.makePersistent(SessionManager.getSession(), cysdreq, SessionManager.ROOT_OBJECT_ID);
@@ -81,14 +89,17 @@ public class Loader {
 	 * 
 	 */
 	private static void initBasicData(Cysdreq cysdreq) throws Exception {
-		// Agrega un rol de administrador al sistema
-		Rol rol = new Rol("administrador", getAcciones());
-		cysdreq.agregarRol(rol);
+		// Agrega roles de administrador al sistema
+		Rol rolSistema = new Rol("administrador sistema", TipoAccionManager.getAccionesSistema());
+		Rol rolProyecto = new Rol("administrador proyectos", TipoAccionManager.getAccionesProyecto());
+		cysdreq.agregarRol(rolSistema);
+		cysdreq.agregarRol(rolProyecto);
 
-		// Agrega un usuario rool con rol de administrador al sistema
+		// Agrega un usuario root con roles de administrador al sistema
 		Usuario usuario = new Usuario("root user", "root", "nousar");
 		ArrayList roles = new ArrayList();
-		roles.add(rol);
+		roles.add(rolSistema);
+		roles.add(rolProyecto);
 		usuario.setRoles(roles);
 		cysdreq.agregarUsuario(usuario);
 
@@ -98,19 +109,31 @@ public class Loader {
 	/**
 	 * 
 	 */
-	private static ArrayList getAcciones() throws Exception {
+	private static void initTestData(Cysdreq cysdreq) throws Exception {
+		// Agrega roles de genericos al sistema
+		Rol rolSistema = new Rol("generico sistema", TipoAccionManager.getAccionesSistema());
+		Rol rolProyecto = new Rol("generico proyectos", TipoAccionManager.getAccionesProyecto());
+		cysdreq.agregarRol(rolSistema);
+		cysdreq.agregarRol(rolProyecto);
 
-		//TODO usar TipoAccionManager
-		ArrayList acciones = new ArrayList();
-		acciones.add(new AgregarMiembro());
-		acciones.add(new AgregarRequerimiento());
-		acciones.add(new AgregarRolProyecto());
-		acciones.add(new AgregarTipoRequerimiento());
-		acciones.add(new AgregarProyecto());
-		acciones.add(new AgregarRolSistema());
-		acciones.add(new AgregarUsuario());
+		// Agrega un usuario test con un rol generico al sistema
+		Usuario usuario = new Usuario("test user", "test", "test");
+		ArrayList roles = new ArrayList();
+		roles.add(rolSistema);
+		usuario.setRoles(roles);
+		cysdreq.agregarUsuario(usuario);
 
-		return acciones;
+		// Agrega un proyecto al sistema
+		Proyecto proyecto = new Proyecto("Proyecto de Prueba");
+		cysdreq.agregarProyecto(proyecto);
+
+		// Agrega un miembro al proyecto con roles genericos (de proyecto)
+		roles = new ArrayList();
+		roles.add(rolProyecto);
+		Miembro miembro = new Miembro(usuario, roles);
+		proyecto.agregarMiembro(miembro);
+
+		System.out.println("Se agregó data de inicialización para testing");
 	}
 
 }
