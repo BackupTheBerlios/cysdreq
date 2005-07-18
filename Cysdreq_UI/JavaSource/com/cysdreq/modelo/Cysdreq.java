@@ -56,7 +56,7 @@ public final class Cysdreq {
 		getProyectos().add(p);
 	}
 
-	protected ArrayList getProyectos() {
+	public ArrayList getProyectos() {
 		if (proyectos == null)
 			proyectos = new ArrayList();
 
@@ -67,7 +67,7 @@ public final class Cysdreq {
 		this.proyectos = proyectos;
 	}
 
-	protected ArrayList getUsuarios() {
+	public ArrayList getUsuarios() {
 		if (usuarios == null)
 			usuarios = new ArrayList();
 		return usuarios;

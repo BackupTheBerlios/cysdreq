@@ -72,6 +72,7 @@ public class UserBean {
 	 * @return
 	 */
 	public String getNombreProyecto() {
+		
 		return nombreProyecto;
 	}
 

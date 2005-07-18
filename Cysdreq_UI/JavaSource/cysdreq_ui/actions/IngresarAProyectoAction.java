@@ -17,6 +17,7 @@ import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Proyecto;
 
 import cysdreq_ui.bean.UserBean;
+import cysdreq_ui.forms.FormIngresarAProyecto;
 
 /**
  * @version 	1.0
@@ -33,9 +34,7 @@ public class IngresarAProyectoAction extends Action {
 
 		ActionErrors errors = new ActionErrors();
 		ActionForward forward = new ActionForward();
-		// return value
-		String nombreProyecto  = (String) PropertyUtils.getSimpleProperty(form, "nombre");
-		
+		FormIngresarAProyecto formIngresar = (FormIngresarAProyecto) form;
 		
 		try	{
 			//obtiene la transacción asociada al administrador de persistencia.
@@ -43,7 +42,8 @@ public class IngresarAProyectoAction extends Action {
 
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			
-			Proyecto proyecto = cysdreq.getProyecto(nombreProyecto);
+			//Proyecto proyecto = cysdreq.getProyecto(nombreProyecto);
+			Proyecto proyecto = formIngresar.getProyectoSeleccionado(); 
 						
 			if (proyecto == null) {
 				errors.add("name", new ActionError("errors.ingresarAProyecto.inexistente"));
@@ -52,7 +52,7 @@ public class IngresarAProyectoAction extends Action {
 				HttpSession session = request.getSession();
 				UserBean userBean = (UserBean) session.getAttribute(LogonAction.USER_KEY);
 				
-				userBean.setNombreProyecto(nombreProyecto);
+				userBean.setNombreProyecto(proyecto.getNombre());
 			}
 			
 			SessionManager.commit();

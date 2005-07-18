@@ -1,12 +1,14 @@
 /*
- * Created on 02/07/2005
+ * Created on 16/07/2005
  *
  * To change the template for this generated file go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 package cysdreq_ui.bean;
 
-import com.cysdreq.modelo.Rol;
+import com.cysdreq.modelo.Usuario;
+
+
 
 /**
  * @author Daniel Nanni
@@ -14,51 +16,35 @@ import com.cysdreq.modelo.Rol;
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class RolBean {
-
+public class UsuarioBean {
 	private String label;
 	private String value;
 
 	/**
 	 * 
 	 */
-	public RolBean() {
+	public UsuarioBean() {
 		super();
 	}
 
-	public RolBean(Rol rol) {
+	public UsuarioBean(Usuario usuario) {
 		super();
-		setLabel(rol.getNombre());
-		setValue(rol.getNombre());
+		setLabel(usuario.getNombre());
+		setValue(usuario.getUsuario());
 	}
 
-
-
-
-	/**
-	 * @return
-	 */
 	public String getLabel() {
 		return label;
 	}
-
-	/**
-	 * @return
-	 */
+	
 	public String getValue() {
 		return value;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setLabel(String string) {
 		label = string;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setValue(String string) {
 		value = string;
 	}

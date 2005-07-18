@@ -4,6 +4,7 @@
 package com.cysdreq.modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.cysdreq.modelo.req.Requerimiento;
 import com.cysdreq.modelo.req.TipoRequerimiento;
@@ -97,5 +98,19 @@ public class Proyecto {
 	
 	public void agregarTipoRequerimiento(TipoRequerimiento tipo) {
 		this.getTiposRequerimientos().add(tipo);
+	}
+	
+	public Rol getRolPorNombre(String nombreRol){
+		
+		Iterator iter = this.getRoles().iterator();
+		while (iter.hasNext()) {
+			Rol rol = (Rol) iter.next();
+			if (rol.getNombre().equals(nombreRol)){
+				return rol;
+			}	
+		}
+		
+		return null;
+					
 	}
 }

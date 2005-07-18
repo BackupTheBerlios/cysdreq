@@ -41,12 +41,15 @@
 									<td colspan="2">Agregar un miembro al proyecto</td>
 								</tr>
 								<tr>
-									<td width="50%" align="right">Nombre del miembro:</td>
-								    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
+									<td width="50%" align="right">Seleccione al miembro:</td>
+								    <td width="50%" align="left">
+							    	<html:select property="nombreUsuarioSeleccionado" size="10">
+							    		<html:optionsCollection property="usuarios"/>
+							    	</html:select>
+								    </td>
 								</tr>
 								<tr>
-								    <td width="50%" align="right">Seleccione uno de los siguientes roles:</td>
-								    <td width="50%" align="left">
+								    <td width="50%" align="right">Seleccione uno de los siguientes roles:
 								    	<html:select property="rolesSeleccionados" size="10" multiple="false">
 								    		<html:optionsCollection property="roles"/>
 								    	</html:select>

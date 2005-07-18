@@ -50,7 +50,7 @@ public class AgregarMiembroAction extends Action {
 			// Agrega el miembro
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			Proyecto proyecto = cysdreq.getProyecto(userBean.getNombreProyecto());
-			Usuario usuario = cysdreq.getUsuario(formAgregarMiembro.getNombre());
+			Usuario usuario = cysdreq.getUsuario(formAgregarMiembro.getNombreUsuarioSeleccionado());
 					
 			if (proyecto == null) {
 				errors.add(	"usuario",	new ActionError("errors.miembro.proyectoInexistente"));
@@ -61,7 +61,7 @@ public class AgregarMiembroAction extends Action {
 
 				HashMap params = new HashMap(2);
 				params.put("usuario", usuario);
-				params.put("roles", new PersistentArrayList());
+				params.put("roles", formAgregarMiembro.getRolesPersistentesSeleccionados());
 				cysdreq.ejecutarAccion(new AgregarMiembro(), proyecto, params);
 
 

@@ -43,13 +43,15 @@ contentType="text/html; charset=ISO-8859-1"
 			    <html:form action="/ingresarAProyecto.do">
 				<table height="300" border="0" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
 				<tr>
-					<td colspan="2">Ingresar el nombre del proyecto al cual desea ingresar</td>
+					<td colspan="2">Seleccione el proyecto al cual desea ingresar</td>
 				</tr>
 				<tr>
-					<td width="50%" align="right">Nombre:</td>
-				    <td width="50%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
-				</tr>
-				
+				    <td width="50%" align="center">
+				    	<html:select property="nombreProyectoSeleccionado" size="10">
+				    		<html:optionsCollection property="proyectos"/>
+				    	</html:select>
+				    </td>
+				</tr>				
 				<tr>
 				    <td width="50%" align="center" colspan="2"><html:submit>Ingresar</html:submit></td>
 				</tr>
