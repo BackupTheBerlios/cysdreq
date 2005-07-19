@@ -77,6 +77,8 @@
 		<action path="/guardarTipoRequerimiento" input="/tipoRequerimiento.jsp" name="formTipoRequerimiento" scope="request" type="cysdreq_ui.actions.GuardarTipoRequerimientoAction">
 			<forward name="error" path="/tipoRequerimiento.jsp">
 			</forward>
+			<forward name="continue" path="/tipoRequerimiento.jsp">
+			</forward>
 		</action>
 	</action-mappings>
 

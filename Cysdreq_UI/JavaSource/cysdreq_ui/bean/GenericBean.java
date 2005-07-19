@@ -63,4 +63,23 @@ public class GenericBean {
 		value = string;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object obj) {
+		if (obj != null && obj instanceof GenericBean) {
+			GenericBean bean = (GenericBean) obj;
+			return (this.getLabel().equals(bean.getLabel()) &&
+					this.getValue().equals(bean.getValue()));
+		} else
+			return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return this.getLabel().hashCode() ^ this.getValue().hashCode();
+	}
+
 }

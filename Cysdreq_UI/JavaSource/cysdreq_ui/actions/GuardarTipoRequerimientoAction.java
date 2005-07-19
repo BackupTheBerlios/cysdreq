@@ -44,17 +44,21 @@ public class GuardarTipoRequerimientoAction extends Action {
 			
 			String action = formTipoRequerimiento.getAction();
 		
-			if (action.equals("agregarEstado")) {
-				HttpSession session = request.getSession();
-				UserBean userBean = (UserBean) session.getAttribute(LogonAction.USER_KEY);
+			// el default es continuar con la misma página
+			forward = mapping.findForward("continue");
 
-				GenericBean bean = new GenericBean(formTipoRequerimiento.getEstado());
-//				formTipoRequerimiento.getEstados().add(bean);
-				formTipoRequerimiento.setEstadosIngresados(formTipoRequerimiento.getEstadosIngresados()+"|"+formTipoRequerimiento.getEstado());
-				formTipoRequerimiento.setEstado("");
-				forward = mapping.findForward("error");
-			} else if (action.equals("agregarPropiedad")) {
-				
+			if        (action.equals("Agregar Estado")) {
+				formTipoRequerimiento.agregarEstado();
+
+			} else if (action.equals("Quitar Estado")) {
+				formTipoRequerimiento.quitarEstado();
+
+			} else if (action.equals("Agregar Propiedad")) {
+				formTipoRequerimiento.agregarPropiedad();
+
+			} else if (action.equals("Quitar Propiedad")) {
+				formTipoRequerimiento.quitarPropiedad();
+
 			}
 /*		
 			try	{
@@ -85,23 +89,17 @@ public class GuardarTipoRequerimientoAction extends Action {
 
 			}
 */
+			formTipoRequerimiento.setAction("");
+
 			// If a message is required, save the specified key(s)
 			// into the request for use by the <struts:errors> tag.
-/*
 			if (!errors.isEmpty()) {
 				saveErrors(request, errors);
 
 				// Forward control to the appropriate 'failure' URI (change name as desired)
 				forward = mapping.findForward("error");
-
-			} else {
-
-				// Forward control to the appropriate 'success' URI (change name as desired)
-				forward = mapping.findForward("globalSuccess");
-
 			}
-*/
-forward = mapping.findForward("error");
+
 			// Finish with
 			return (forward);
 	}
