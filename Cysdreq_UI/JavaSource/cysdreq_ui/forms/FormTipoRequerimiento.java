@@ -7,15 +7,16 @@
 package cysdreq_ui.forms;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
-import cysdreq_ui.bean.GenericBean;
+import com.cysdreq.util.LabelAndValueListHelper;
 
 /**
  * @author Nacirita
@@ -25,14 +26,26 @@ import cysdreq_ui.bean.GenericBean;
  */
 public class FormTipoRequerimiento extends ActionForm {
 
+	public static final String ACCION_AGREGAR_ESTADO = "Agregar Estado";
+	public static final String ACCION_QUITAR_ESTADO = "Quitar Estado";
+	public static final String ACCION_AGREGAR_PROPIEDAD = "Agregar Propiedad";
+	public static final String ACCION_QUITAR_PROPIEDAD = "Quitar Propiedad";
+	public static final String ACCION_GUARDAR_TIPO = "Guardar";
+
 	private String nombre = "";
+	private String action = "";
+
 	private String estado = "";
 	private String estadoSeleccionado;
+	private String estadosIngresados = "";
+
 	private String propiedad = "";
 	private String propiedadSeleccionada;
-	private String action = "";
-	private String estadosIngresados = "";
 	private String propiedadesIngresadas = "";
+
+	private ArrayList propiedadEstados = new ArrayList();
+	private ArrayList propiedadSeleccionadaEstados = new ArrayList();
+	private ArrayList propiedadesIngresadasEstados = new ArrayList();
 
 	/**
 	 * @return
@@ -45,27 +58,21 @@ public class FormTipoRequerimiento extends ActionForm {
 	 * @return
 	 */
 	public String getEstado() {
-		return estado;
+		return estado.trim();
 	}
 
 	/**
 	 * @return
 	 */
 	public ArrayList getEstados() {
-		ArrayList estados = new ArrayList();
+		return LabelAndValueListHelper.parseBeansList(getEstadosIngresados(), "<Debe agregar estados>");
+	}
 
-		StringTokenizer st = new StringTokenizer(getEstadosIngresados(), "|");
-		String token;
-		while (st.hasMoreTokens()) {
-			token = st.nextToken();
-			estados.add(new GenericBean(token));
-		}
-
-		if (estados.size() == 0) {
-			estados.add(new GenericBean("<Debe agregar estados>"));
-		}
-
-		return estados;
+	/**
+	 * @return
+	 */
+	public ArrayList getEstadosReales() {
+		return LabelAndValueListHelper.parseBeansList(getEstadosIngresados(), null);
 	}
 
 	/**
@@ -93,20 +100,7 @@ public class FormTipoRequerimiento extends ActionForm {
 	 * @return
 	 */
 	public ArrayList getPropiedades() {
-		ArrayList propiedades = new ArrayList();
-
-		StringTokenizer st = new StringTokenizer(getPropiedadesIngresadas(), "|");
-		String token;
-		while (st.hasMoreTokens()) {
-			token = st.nextToken();
-			propiedades.add(new GenericBean(token));
-		}
-
-		if (propiedades.size() == 0) {
-			propiedades.add(new GenericBean("<Debe agregar propiedades>"));
-		}
-
-		return propiedades;
+		return LabelAndValueListHelper.parseBeansList(getPropiedadesIngresadas(), "<Debe agregar propiedades>");
 	}
 
 	/**
@@ -162,18 +156,32 @@ public class FormTipoRequerimiento extends ActionForm {
 	 * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
 	 */
 	public ActionErrors validate(ActionMapping actionMapping, HttpServletRequest request) {
+		String action = getAction();
 		ActionErrors errors = new ActionErrors();
 		// Validate the fields in your form, adding
 		// adding each error to this.errors as found, e.g.
 
-		if ((getNombre() == null) || (getNombre().length() == 0)) {
-			errors.add("nombre", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.nombreVacio"));
-		}
-		if ((getEstadosIngresados() == null) || (getEstadosIngresados().length() == 0)) {
-			errors.add("estados", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.estadosVacio"));
-		}
-		if ((getPropiedadesIngresadas() == null) || (getPropiedadesIngresadas().length() == 0)) {
-			errors.add("propiedades", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.propiedadesVacio"));
+		if        (action.equals(ACCION_AGREGAR_ESTADO)) {
+			if ((getEstado() == null) || (getEstado().trim().length() == 0)) {
+				errors.add("nombre", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.estadoVacio"));
+			}
+
+		} else if (action.equals(ACCION_QUITAR_ESTADO)) {
+
+		} else if (action.equals(ACCION_AGREGAR_PROPIEDAD)) {
+
+		} else if (action.equals(ACCION_QUITAR_PROPIEDAD)) {
+
+		} else if (action.equals(ACCION_GUARDAR_TIPO)) {
+			if ((getNombre() == null) || (getNombre().length() == 0)) {
+				errors.add("nombre", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.nombreVacio"));
+			}
+			if ((getEstadosIngresados() == null) || (getEstadosIngresados().length() == 0)) {
+				errors.add("estados", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.estadosVacio"));
+			}
+			if ((getPropiedadesIngresadas() == null) || (getPropiedadesIngresadas().length() == 0)) {
+				errors.add("propiedades", new org.apache.struts.action.ActionError("errors.tipoRequerimiento.propiedadesVacio"));
+			}
 		}
 		return errors;
 	}
@@ -190,6 +198,22 @@ public class FormTipoRequerimiento extends ActionForm {
 	 */
 	public void setEstadosIngresados(String string) {
 		estadosIngresados = string;
+		
+		int size = getEstadosReales().size();
+
+		Iterator iter = getEstadosReales().iterator();
+		while (iter.hasNext()) {
+			LabelValueBean estado = (LabelValueBean) iter.next();
+			if (propiedadEstados.size() < size) {
+				propiedadEstados.add("");
+			}
+			if (propiedadEstados.size() < size) {
+				propiedadSeleccionadaEstados.add("");
+			}
+			if (propiedadEstados.size() < size) {
+				propiedadesIngresadasEstados.add("");
+			}
+		}
 	}
 
 	/**
@@ -207,18 +231,19 @@ public class FormTipoRequerimiento extends ActionForm {
 	}
 
 	public void agregarEstado() {
-		String est = getEstado();
-		if (est != null && est.trim().length() > 0) {
-			setEstadosIngresados(getEstadosIngresados() + "|" + est);
-		}
+		// Se agregan los strings vacíos a los arrays de propiedades del nuevo estado
+		propiedadEstados.add("");
+		propiedadSeleccionadaEstados.add("");
+		propiedadesIngresadasEstados.add("");
+
+		// Agrega al campo hidden el nuevo estado
+		setEstadosIngresados(LabelAndValueListHelper.add(getEstadosIngresados(), getEstado()));
 		setEstado("");
 	}
 
 	public void agregarPropiedad() {
-		String prop = getPropiedad();
-		if (prop != null && prop.trim().length() > 0) {
-			setPropiedadesIngresadas(getPropiedadesIngresadas() + "|" + prop);
-		}
+		setPropiedadesIngresadas(
+			LabelAndValueListHelper.add(getPropiedadesIngresadas(), getPropiedad()));
 		setPropiedad("");
 	}
 
@@ -226,44 +251,90 @@ public class FormTipoRequerimiento extends ActionForm {
 	 * 
 	 */
 	public void quitarEstado() {
-		String est = getEstadoSeleccionado();
+		// Borra la data de los arrays de propiedades del estado que se está borrando
+		int index = LabelAndValueListHelper.indexOnLabelValueArray(getEstadosReales(), getEstadoSeleccionado());
+		propiedadEstados.remove(index);
+		propiedadesIngresadasEstados.remove(index);
 
-		if (est != null && est.trim().length() > 0 && !est.startsWith("<")) {
-			StringBuffer estadosIng = new StringBuffer();
-	
-			StringTokenizer st = new StringTokenizer(getEstadosIngresados(), "|");
-			String token;
-			while (st.hasMoreTokens()) {
-				token = st.nextToken();
-				if (!est.equals(token)) {
-					estadosIng.append("|");
-					estadosIng.append(token);
-				}
-			}
-			setEstadosIngresados(estadosIng.toString());
-		}
+		// Saca del campo hidden el estado borrado
+		setEstadosIngresados(
+			LabelAndValueListHelper.remove(getEstadosIngresados(), getEstadoSeleccionado()));
 	}
 
 	/**
 	 * 
 	 */
 	public void quitarPropiedad() {
-		String prop = getPropiedadSeleccionada();
+		setPropiedadesIngresadas(
+			LabelAndValueListHelper.remove(getPropiedadesIngresadas(), getPropiedadSeleccionada()));
+	}
 
-		if (prop != null && prop.trim().length() > 0 && !prop.startsWith("<")) {
-			StringBuffer propsIng = new StringBuffer();
-	
-			StringTokenizer st = new StringTokenizer(getPropiedadesIngresadas(), "|");
-			String token;
-			while (st.hasMoreTokens()) {
-				token = st.nextToken();
-				if (!prop.equals(token)) {
-					propsIng.append("|");
-					propsIng.append(token);
-				}
-			}
-			setPropiedadesIngresadas(propsIng.toString());
+	public String getPropiedadEstados(int index) { 
+		return (String) propiedadEstados.get(index); 
+	}
+    
+	public void setPropiedadEstados(int index, String value) {
+		setIntoArrayList(propiedadEstados, index, value);
+	}
+
+	public String getPropiedadSeleccionadaEstados(int index) { 
+		try {
+			return (String) propiedadSeleccionadaEstados.get(index); 
+		} catch (IndexOutOfBoundsException e) {
+			setPropiedadSeleccionadaEstados(index, "");
+			return (String) propiedadSeleccionadaEstados.get(index); 
 		}
+	}
+    
+	public void setPropiedadSeleccionadaEstados(int index, String value) { 
+		setIntoArrayList(propiedadSeleccionadaEstados, index, value);
+	}
+
+	public String getPropiedadesIngresadasEstados(int index) { 
+		return (String) propiedadesIngresadasEstados.get(index); 
+	}
+    
+	public void setPropiedadesIngresadasEstados(int index, String value) { 
+		setIntoArrayList(propiedadesIngresadasEstados, index, value);
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList getPropiedadesEstados(int index) {
+		return LabelAndValueListHelper.parseBeansList(getPropiedadesIngresadasEstados(index), "<Debe agregar propiedades>");
+	}
+
+	private void setIntoArrayList(ArrayList array, int index, String value) {
+		try {
+			array.set(index, value);
+		} catch (IndexOutOfBoundsException e) {
+			boolean added = false;
+			while (!added) {
+				try {
+					array.add("");
+					array.set(index, value);
+					added = true;
+				} catch (IndexOutOfBoundsException e1) {}
+			}
+		}
+	}
+
+	/**
+	 * @param index
+	 */
+	public void agregarPropiedadEstados(int index) {
+		setPropiedadesIngresadasEstados(index,
+			LabelAndValueListHelper.add(getPropiedadesIngresadasEstados(index), getPropiedadEstados(index)));
+		setPropiedadEstados(index, "");
+	}
+
+	/**
+	 * @param index
+	 */
+	public void quitarPropiedadEstados(int index) {
+		setPropiedadesIngresadasEstados(index,
+			LabelAndValueListHelper.remove(getPropiedadesIngresadasEstados(index), getPropiedadSeleccionadaEstados(index)));
 	}
 
 }

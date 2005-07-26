@@ -6,18 +6,22 @@
  */
 package cysdreq_ui.actions;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
-import cysdreq_ui.bean.GenericBean;
-import cysdreq_ui.bean.UserBean;
+import com.cysdreq.util.LabelAndValueListHelper;
+
 import cysdreq_ui.forms.FormTipoRequerimiento;
 
 /**
@@ -42,22 +46,76 @@ public class GuardarTipoRequerimientoAction extends Action {
 
 			FormTipoRequerimiento formTipoRequerimiento = (FormTipoRequerimiento) form;
 			
-			String action = formTipoRequerimiento.getAction();
+			String action = parseAction(formTipoRequerimiento.getAction());
+			String stateAction = parseState(formTipoRequerimiento.getAction());
 		
+			System.out.println("ESTE ES EL ACTION:");
+			System.out.println(action);
+			System.out.println(stateAction);
+			System.out.println();
+
 			// el default es continuar con la misma página
 			forward = mapping.findForward("continue");
 
-			if        (action.equals("Agregar Estado")) {
-				formTipoRequerimiento.agregarEstado();
+			// Alta de estados
+			if        (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_ESTADO)) {
+				if (LabelAndValueListHelper.existsOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), formTipoRequerimiento.getEstado())) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoExistente"));
+				} else if (formTipoRequerimiento.getEstado() == null || formTipoRequerimiento.getEstado().length() == 0) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoVacio"));
+				} else {
+					formTipoRequerimiento.agregarEstado();
+				}
 
-			} else if (action.equals("Quitar Estado")) {
-				formTipoRequerimiento.quitarEstado();
+			// Baja de estados
+			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_ESTADO)) {
+				if (formTipoRequerimiento.getEstadoSeleccionado() == null || formTipoRequerimiento.getEstadoSeleccionado().length() == 0) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoNoSeleccionado"));
+				} else {
+					formTipoRequerimiento.quitarEstado();
+				}
 
-			} else if (action.equals("Agregar Propiedad")) {
-				formTipoRequerimiento.agregarPropiedad();
+			// Alta de propiedades
+			} else if (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_PROPIEDAD) &&
+						stateAction == null) {
+				if (LabelAndValueListHelper.existsOnLabelValueArray(formTipoRequerimiento.getPropiedades(), formTipoRequerimiento.getPropiedad())) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadExistente"));
+				} else if (formTipoRequerimiento.getPropiedad() == null || formTipoRequerimiento.getPropiedad().length() == 0) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadVacia"));
+				} else {
+					formTipoRequerimiento.agregarPropiedad();
+				}
 
-			} else if (action.equals("Quitar Propiedad")) {
-				formTipoRequerimiento.quitarPropiedad();
+			// Baja de propiedades
+			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_PROPIEDAD) &&
+						stateAction == null) {
+				if (formTipoRequerimiento.getPropiedadSeleccionada() == null || formTipoRequerimiento.getPropiedadSeleccionada().length() == 0) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadNoSeleccionada"));
+				} else {
+					formTipoRequerimiento.quitarPropiedad();
+				}
+
+			// Alta de propiedades
+			} else if (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_PROPIEDAD) &&
+						stateAction != null) {
+				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
+				if (LabelAndValueListHelper.existsOnLabelValueArray(formTipoRequerimiento.getPropiedadesEstados(index), formTipoRequerimiento.getPropiedadEstados(index))) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadExistente"));
+				} else if (formTipoRequerimiento.getPropiedadEstados(index) == null || formTipoRequerimiento.getPropiedadEstados(index).length() == 0) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadVacia"));
+				} else {
+					formTipoRequerimiento.agregarPropiedadEstados(index);
+				}
+
+			// Baja de propiedades
+			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_PROPIEDAD) &&
+						stateAction != null) {
+				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
+				if (formTipoRequerimiento.getPropiedadSeleccionadaEstados(index) == null || formTipoRequerimiento.getPropiedadSeleccionadaEstados(index).length() == 0) {
+					errors.add("propiedades", new ActionError("errors.tipoRequerimiento.propiedadNoSeleccionada"));
+				} else {
+					formTipoRequerimiento.quitarPropiedadEstados(index);
+				}
 
 			}
 /*		
@@ -102,6 +160,38 @@ public class GuardarTipoRequerimientoAction extends Action {
 
 			// Finish with
 			return (forward);
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private String parseAction(String action) {
+		String resultAction = action.trim();
+
+		if (action.endsWith(")")) {
+			int start = action.trim().indexOf('(');
+			int end = action.trim().indexOf(')');
+			resultAction = action.trim().substring(0, start - 1);
+		}
+
+		return resultAction;
+	}
+
+	/**
+	 * @param string
+	 * @return
+	 */
+	private String parseState(String action) {
+		String resultState = null;
+
+		if (action.endsWith(")")) {
+			int start = action.trim().indexOf('(');
+			int end = action.trim().indexOf(')');
+			resultState = action.trim().substring(start + 1, end);
+		}
+
+		return resultState;
 	}
 
 }

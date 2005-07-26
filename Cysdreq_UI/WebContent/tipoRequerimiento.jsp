@@ -2,6 +2,7 @@
 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 
 <html:html>
 <HEAD>
@@ -36,27 +37,14 @@
 						<TD>
 						    <html:errors/>
 						    <html:form action="/guardarTipoRequerimiento.do">
-								<table height="300" border="1" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
+								<table border="1" valign="center" align="center" width="80%" cellpadding=3 bgcolor="#999999">
 									<tr>
-										<td colspan="5">Agregar Tipo de Requerimiento</td>
+										<td colspan="5"><b>Agregar Tipo de Requerimiento<b></td>
 									</tr>
 									<tr>
 										<td width="25%" align="right">Nombre:</td>
 									    <td width="25%" align="left"><html:text property="nombre" size="50" maxlength="50"/></td>
 										<td colspan="3" width="50%">&nbsp;</td>
-									</tr>
-									<tr>
-									    <td width="25%" align="right">Estados:</td>
-									    <td width="25%" align="left"><html:text property="estado" size="50" maxlength="50"/></td>
-									    <td width="25%" align="center" colspan="2">
-									    	<html:submit property="action" value="Agregar Estado"/><br><br>
-									    	<html:submit property="action" value="Quitar Estado"/>
-									    </td>
-									    <td width="25%" align="left">
-									    	<html:select property="estadoSeleccionado" size="6">
-									    		<html:optionsCollection property="estados"/>
-									    	</html:select>
-									    </td>
 									</tr>
 									<tr>
 									    <td width="25%" align="right">Propiedades:</td>
@@ -71,10 +59,67 @@
 									    	</html:select>
 									    </td>
 									</tr>
+
+									<tr>
+									    <td width="25%" align="right">Estados:</td>
+									    <td width="25%" align="left"><html:text property="estado" size="50" maxlength="50"/></td>
+									    <td width="25%" align="center" colspan="2">
+									    	<html:submit property="action" value="Agregar Estado"/><br><br>
+									    	<html:submit property="action" value="Quitar Estado"/>
+									    </td>
+									    <td width="25%" align="left">
+									    	<html:select property="estadoSeleccionado" size="6">
+									    		<html:optionsCollection property="estados"/>
+									    	</html:select>
+									    </td>
+									</tr>
+
 									<tr>
 										<td colspan="5"><html:submit property="action" value="Agregar Tipo de Requerimiento"/></td>
 									</tr>
 								</table>
+								<br>
+								<logic:iterate name="formTipoRequerimiento" property="estadosReales" id="foo" indexId="counter">
+									<table border="1" valign="center" align="center" width="80%" cellpadding=3 bgcolor="#999999">
+										<tr>
+											<td colspan="5">Estado <b><bean:write name="formTipoRequerimiento" property='<%= "estadosReales[" + counter + "].value" %>'/></b></td>
+										</tr>
+										<tr>
+										    <td width="25%" align="right">Propiedades:</td>
+										    <td width="25%" align="left">
+										    	<html:text property='<%= "propiedadEstados[" + counter + "]" %>' size="50" maxlength="50"/>
+										    </td>
+										    <td width="25%" align="center" colspan="2">
+										    	<html:submit property="action">
+													Agregar Propiedad (<bean:write name="formTipoRequerimiento" property='<%= "estadosReales[" + counter + "].value" %>'/>)
+										    	</html:submit><br><br>
+										    	<html:submit property="action">
+													Quitar Propiedad (<bean:write name="formTipoRequerimiento" property='<%= "estadosReales[" + counter + "].value" %>'/>)
+										    	</html:submit><br><br>
+										    </td>
+										    <td width="25%" align="left">
+										    	<html:select property='<%= "propiedadSeleccionadaEstados[" + counter + "]" %>' size="4">
+										    		<html:optionsCollection property='<%= "propiedadesEstados[" + counter + "]" %>'/>
+										    	</html:select>
+										    </td>
+										</tr>
+										<tr>
+										    <td width="25%" align="right">Estados siguientes:</td>
+										    <td width="25%" align="left">
+										    	&nbsp;
+										    </td>
+										    <td width="25%" align="center" colspan="2">
+										    	&nbsp;
+										    </td>
+										    <td width="25%" align="left">
+										    	&nbsp;
+										    </td>
+										</tr>
+									</table>
+									<html:hidden property='<%= "propiedadesIngresadasEstados[" + counter + "]" %>'/>
+									<br>
+								</logic:iterate>
+
 								<html:hidden property="estadosIngresados"/>
 								<html:hidden property="propiedadesIngresadas"/>
 							</html:form>
