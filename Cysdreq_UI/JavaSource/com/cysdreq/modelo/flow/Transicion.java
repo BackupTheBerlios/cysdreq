@@ -15,30 +15,40 @@ import com.cysdreq.tareas.AdministradorDeTareas;
  */
 public class Transicion {
 
-	private static AdministradorDeTareas administrador;
-
 	private TipoEstado tipoEstadoDestino;
-	private ArrayList tareas;
+
+	public Transicion() {
+		super();
+	}
 
 	/**
 	 * 
 	 */
-	public Transicion() {
+	public Transicion(TipoEstado tipo) {
 		super();
+		setTipoEstadoDestino(tipo);
 	}
 
 	public void ejecutar(Requerimiento requerimiento, Miembro miembro) {
 		Estado nuevoEstado = this.getEstadoDestino(miembro);
 		requerimiento.cambiarEstado(nuevoEstado);
-		this.ejecutarTareas();
-	}
-
-	private void ejecutarTareas() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private Estado getEstadoDestino(Miembro miembro) {
 		return tipoEstadoDestino.nuevoEstado(miembro);
 	}
+	/**
+	 * @return
+	 */
+	public TipoEstado getTipoEstadoDestino() {
+		return tipoEstadoDestino;
+	}
+
+	/**
+	 * @param estado
+	 */
+	public void setTipoEstadoDestino(TipoEstado estado) {
+		tipoEstadoDestino = estado;
+	}
+
 }

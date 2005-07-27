@@ -40,7 +40,7 @@ public class TipoEstado {
 		return nombre;
 	}
 
-	protected void setNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -48,7 +48,7 @@ public class TipoEstado {
 		return transiciones;
 	}
 
-	protected void setTransiciones(ArrayList proximosEstados) {
+	public void setTransiciones(ArrayList proximosEstados) {
 		this.transiciones = proximosEstados;
 	}
 
@@ -56,7 +56,7 @@ public class TipoEstado {
 		return tiposPropiedades;
 	}
 
-	protected void setTiposPropiedades(ArrayList tiposPropiedades) {
+	public void setTiposPropiedades(ArrayList tiposPropiedades) {
 		this.tiposPropiedades = tiposPropiedades;
 	}
 

@@ -7,10 +7,12 @@
 package cysdreq_ui.actions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionError;
@@ -20,8 +22,14 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.LabelValueBean;
 
+import com.cysdreq.acciones.proyecto.AgregarTipoRequerimiento;
+import com.cysdreq.loader.SessionManager;
+import com.cysdreq.modelo.Cysdreq;
+import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.util.LabelAndValueListHelper;
+import com.cysdreq.util.PersistentArrayList;
 
+import cysdreq_ui.bean.UserBean;
 import cysdreq_ui.forms.FormTipoRequerimiento;
 
 /**
@@ -42,8 +50,6 @@ public class GuardarTipoRequerimientoAction extends Action {
 			ActionErrors errors = new ActionErrors();
 			ActionForward forward = new ActionForward();
 
-			//String nombreProyecto  = (String) PropertyUtils.getSimpleProperty(form, "nombre");
-
 			FormTipoRequerimiento formTipoRequerimiento = (FormTipoRequerimiento) form;
 			
 			String action = parseAction(formTipoRequerimiento.getAction());
@@ -58,7 +64,8 @@ public class GuardarTipoRequerimientoAction extends Action {
 			forward = mapping.findForward("continue");
 
 			// Alta de estados
-			if        (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_ESTADO)) {
+			if        (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_ESTADO) &&
+						stateAction == null) {
 				if (LabelAndValueListHelper.existsOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), formTipoRequerimiento.getEstado())) {
 					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoExistente"));
 				} else if (formTipoRequerimiento.getEstado() == null || formTipoRequerimiento.getEstado().length() == 0) {
@@ -68,7 +75,8 @@ public class GuardarTipoRequerimientoAction extends Action {
 				}
 
 			// Baja de estados
-			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_ESTADO)) {
+			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_ESTADO) &&
+						stateAction == null) {
 				if (formTipoRequerimiento.getEstadoSeleccionado() == null || formTipoRequerimiento.getEstadoSeleccionado().length() == 0) {
 					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoNoSeleccionado"));
 				} else {
@@ -95,7 +103,7 @@ public class GuardarTipoRequerimientoAction extends Action {
 					formTipoRequerimiento.quitarPropiedad();
 				}
 
-			// Alta de propiedades
+			// Alta de propiedades de un estado determinado
 			} else if (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_PROPIEDAD) &&
 						stateAction != null) {
 				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
@@ -107,7 +115,7 @@ public class GuardarTipoRequerimientoAction extends Action {
 					formTipoRequerimiento.agregarPropiedadEstados(index);
 				}
 
-			// Baja de propiedades
+			// Baja de propiedades de un estado determinado
 			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_PROPIEDAD) &&
 						stateAction != null) {
 				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
@@ -117,36 +125,80 @@ public class GuardarTipoRequerimientoAction extends Action {
 					formTipoRequerimiento.quitarPropiedadEstados(index);
 				}
 
-			}
-/*		
-			try	{
-				//obtiene la transacción asociada al administrador de persistencia.
-				SessionManager.beginTransaction();
-
-				Cysdreq cysdreq = Cysdreq.getPersistentInstance();
-			
-				Proyecto proyecto = cysdreq.getProyecto(nombreProyecto);
-						
-				if (proyecto == null) {
-					errors.add("name", new ActionError("errors.ingresarAProyecto.inexistente"));
+			// Alta de estados siguientes de un estado determinado
+			} else if (action.equals(FormTipoRequerimiento.ACCION_AGREGAR_ESTADO) &&
+						stateAction != null) {
+				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
+				if (LabelAndValueListHelper.existsOnLabelValueArray(formTipoRequerimiento.getEstadosSiguientes(index), formTipoRequerimiento.getEstadoSiguienteSeleccionadoIzq(index))) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoExistente"));
+				} else if (formTipoRequerimiento.getEstadoSiguienteSeleccionadoIzq(index) == null || formTipoRequerimiento.getEstadoSiguienteSeleccionadoIzq(index).length() == 0) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoIzqNoSeleccionado"));
 				} else {
-								
+					formTipoRequerimiento.agregarEstadoSiguiente(index);
+				}
+
+			// Baja de estados siguientes de un estado determinado
+			} else if (action.equals(FormTipoRequerimiento.ACCION_QUITAR_ESTADO) &&
+						stateAction != null) {
+				int index = LabelAndValueListHelper.indexOnLabelValueArray(formTipoRequerimiento.getEstadosReales(), stateAction);
+				if (formTipoRequerimiento.getEstadoSiguienteSeleccionadoDer(index) == null || formTipoRequerimiento.getEstadoSiguienteSeleccionadoDer(index).length() == 0) {
+					errors.add("estados", new ActionError("errors.tipoRequerimiento.estadoDerNoSeleccionado"));
+				} else {
+					formTipoRequerimiento.quitarEstadoSiguiente(index);
+				}
+
+
+			// Agrega el tipo de requerimiento
+			} else if (action.equals(FormTipoRequerimiento.ACCION_GUARDAR_TIPO)) {
+				try	{
+					//obtiene la transacción asociada al administrador de persistencia.
+					SessionManager.beginTransaction();
+	
 					HttpSession session = request.getSession();
 					UserBean userBean = (UserBean) session.getAttribute(LogonAction.USER_KEY);
-				
-					userBean.setNombreProyecto(nombreProyecto);
-				}
-			
-				SessionManager.commit();
-			} catch (Throwable t) {
-				SessionManager.rollback();
-				t.printStackTrace();
-				System.out.println("Error al recuperar el proyecto");
-				// Report the error using the appropriate name and ID.
-				errors.add("name", new ActionError("id"));
 
+					Cysdreq cysdreq = Cysdreq.getPersistentInstance();
+				
+					Proyecto proyecto = cysdreq.getProyecto(userBean.getNombreProyecto());
+							
+					if (proyecto == null) {
+						errors.add("name", new ActionError("errors.tipoRequerimiento.proyectoNoSeleccionado"));
+					} else {
+						
+						// Itera sobre los estados armando los arraylist de arraylist de estados y propiedades
+						PersistentArrayList estadosSiguientes = new PersistentArrayList();
+						PersistentArrayList propiedadesDeEstados = new PersistentArrayList();
+						for (int i = 0; i < formTipoRequerimiento.getEstadosReales().size(); i++) {
+							PersistentArrayList estados = new PersistentArrayList(formTipoRequerimiento.getNombresEstadosSiguientes(i));
+							estadosSiguientes.add(estados);
+
+							PersistentArrayList propiedades = new PersistentArrayList(formTipoRequerimiento.getNombresPropiedadesEstados(i));
+							propiedadesDeEstados.add(propiedades);
+						}
+
+						HashMap params = new HashMap(5);
+						params.put("nombre", formTipoRequerimiento.getNombre());
+						params.put("estados", new PersistentArrayList(formTipoRequerimiento.getNombresEstadosReales()));
+						params.put("propiedades", new PersistentArrayList(formTipoRequerimiento.getNombresPropiedadesReales()));
+						params.put("estadosSiguientes", estadosSiguientes);
+						params.put("propiedadesDeEstados", propiedadesDeEstados);
+
+						cysdreq.ejecutarAccion(new AgregarTipoRequerimiento(), proyecto, params);
+					}
+				
+					SessionManager.commit();
+
+					forward = mapping.findForward("globalSuccess");
+
+				} catch (Throwable t) {
+					t.printStackTrace();
+					SessionManager.rollback();
+					System.out.println("Error al recuperar el proyecto");
+					// Report the error using the appropriate name and ID.
+					errors.add("tipoRequerimiento", new ActionError("errors.tipoRequerimiento.guardarTipoRequerimiento"));
+				}
 			}
-*/
+			
 			formTipoRequerimiento.setAction("");
 
 			// If a message is required, save the specified key(s)

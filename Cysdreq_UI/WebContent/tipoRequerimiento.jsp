@@ -75,7 +75,7 @@
 									</tr>
 
 									<tr>
-										<td colspan="5"><html:submit property="action" value="Agregar Tipo de Requerimiento"/></td>
+										<td colspan="5"><html:submit property="action" value="Guardar Tipo de Requerimiento"/></td>
 									</tr>
 								</table>
 								<br>
@@ -106,17 +106,27 @@
 										<tr>
 										    <td width="25%" align="right">Estados siguientes:</td>
 										    <td width="25%" align="left">
-										    	&nbsp;
+										    	<html:select property='<%= "estadoSiguienteSeleccionadoIzq[" + counter + "]" %>' size="6">
+										    		<html:optionsCollection property="estados"/>
+										    	</html:select>
 										    </td>
 										    <td width="25%" align="center" colspan="2">
-										    	&nbsp;
+										    	<html:submit property="action">
+													Agregar Estado (<bean:write name="formTipoRequerimiento" property='<%= "estadosReales[" + counter + "].value" %>'/>)
+										    	</html:submit><br><br>
+										    	<html:submit property="action">
+													Quitar Estado (<bean:write name="formTipoRequerimiento" property='<%= "estadosReales[" + counter + "].value" %>'/>)
+										    	</html:submit><br><br>
 										    </td>
 										    <td width="25%" align="left">
-										    	&nbsp;
+										    	<html:select property='<%= "estadoSiguienteSeleccionadoDer[" + counter + "]" %>' size="6">
+										    		<html:optionsCollection property='<%= "estadosSiguientes[" + counter + "]" %>'/>
+										    	</html:select>
 										    </td>
 										</tr>
 									</table>
 									<html:hidden property='<%= "propiedadesIngresadasEstados[" + counter + "]" %>'/>
+									<html:hidden property='<%= "estadosSiguientesIngresados[" + counter + "]" %>'/>
 									<br>
 								</logic:iterate>
 

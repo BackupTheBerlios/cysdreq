@@ -69,6 +69,19 @@ public class LabelAndValueListHelper {
 		return result;
 	}
 
+	public static ArrayList parseStringList(String list) {
+		ArrayList result = new ArrayList();
+
+		StringTokenizer st = new StringTokenizer(list, SEP);
+		String token;
+		while (st.hasMoreTokens()) {
+			token = st.nextToken();
+			result.add(token);
+		}
+
+		return result;
+	}
+
 	/**
 	 * @param list
 	 * @param string

@@ -30,7 +30,7 @@ public class FormTipoRequerimiento extends ActionForm {
 	public static final String ACCION_QUITAR_ESTADO = "Quitar Estado";
 	public static final String ACCION_AGREGAR_PROPIEDAD = "Agregar Propiedad";
 	public static final String ACCION_QUITAR_PROPIEDAD = "Quitar Propiedad";
-	public static final String ACCION_GUARDAR_TIPO = "Guardar";
+	public static final String ACCION_GUARDAR_TIPO = "Guardar Tipo de Requerimiento";
 
 	private String nombre = "";
 	private String action = "";
@@ -47,107 +47,78 @@ public class FormTipoRequerimiento extends ActionForm {
 	private ArrayList propiedadSeleccionadaEstados = new ArrayList();
 	private ArrayList propiedadesIngresadasEstados = new ArrayList();
 
-	/**
-	 * @return
-	 */
+	private ArrayList estadoSiguienteSeleccionadoIzq = new ArrayList();
+	private ArrayList estadoSiguienteSeleccionadoDer = new ArrayList();
+	private ArrayList estadosSiguientesIngresados = new ArrayList();
+
 	public String getAction() {
 		return action;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getEstado() {
 		return estado.trim();
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList getEstados() {
 		return LabelAndValueListHelper.parseBeansList(getEstadosIngresados(), "<Debe agregar estados>");
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList getEstadosReales() {
 		return LabelAndValueListHelper.parseBeansList(getEstadosIngresados(), null);
 	}
 
-	/**
-	 * @return
-	 */
+	public ArrayList getNombresEstadosReales() {
+		return LabelAndValueListHelper.parseStringList(getEstadosIngresados());
+	}
+
 	public String getEstadoSeleccionado() {
 		return estadoSeleccionado;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getNombre() {
 		return nombre;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getPropiedad() {
 		return propiedad;
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList getPropiedades() {
 		return LabelAndValueListHelper.parseBeansList(getPropiedadesIngresadas(), "<Debe agregar propiedades>");
 	}
 
-	/**
-	 * @return
-	 */
+	public ArrayList getPropiedadesReales() {
+		return LabelAndValueListHelper.parseBeansList(getPropiedadesIngresadas(), null);
+	}
+
+	public ArrayList getNombresPropiedadesReales() {
+		return LabelAndValueListHelper.parseStringList(getPropiedadesIngresadas());
+	}
+
 	public String getPropiedadSeleccionada() {
 		return propiedadSeleccionada;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setAction(String string) {
 		action = string;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setEstado(String string) {
 		estado = string;
 	}
 
-	/**
-	 * @param strings
-	 */
 	public void setEstadoSeleccionado(String strings) {
 		estadoSeleccionado = strings;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setNombre(String string) {
 		nombre = string;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setPropiedad(String string) {
 		propiedad = string;
 	}
 
-	/**
-	 * @param strings
-	 */
 	public void setPropiedadSeleccionada(String strings) {
 		propiedadSeleccionada = strings;
 	}
@@ -186,16 +157,10 @@ public class FormTipoRequerimiento extends ActionForm {
 		return errors;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getEstadosIngresados() {
 		return estadosIngresados;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setEstadosIngresados(String string) {
 		estadosIngresados = string;
 		
@@ -207,25 +172,28 @@ public class FormTipoRequerimiento extends ActionForm {
 			if (propiedadEstados.size() < size) {
 				propiedadEstados.add("");
 			}
-			if (propiedadEstados.size() < size) {
+			if (propiedadSeleccionadaEstados.size() < size) {
 				propiedadSeleccionadaEstados.add("");
 			}
-			if (propiedadEstados.size() < size) {
+			if (propiedadesIngresadasEstados.size() < size) {
 				propiedadesIngresadasEstados.add("");
+			}
+			if (estadoSiguienteSeleccionadoIzq.size() < size) {
+				estadoSiguienteSeleccionadoIzq.add("");
+			}
+			if (estadoSiguienteSeleccionadoDer.size() < size) {
+				estadoSiguienteSeleccionadoDer.add("");
+			}
+			if (estadosSiguientesIngresados.size() < size) {
+				estadosSiguientesIngresados.add("");
 			}
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public String getPropiedadesIngresadas() {
 		return propiedadesIngresadas;
 	}
 
-	/**
-	 * @param string
-	 */
 	public void setPropiedadesIngresadas(String string) {
 		propiedadesIngresadas = string;
 	}
@@ -235,6 +203,11 @@ public class FormTipoRequerimiento extends ActionForm {
 		propiedadEstados.add("");
 		propiedadSeleccionadaEstados.add("");
 		propiedadesIngresadasEstados.add("");
+
+		// Se agregan los strings vacíos a los arrays de estados siguientes del nuevo estado
+		estadoSiguienteSeleccionadoIzq.add("");
+		estadoSiguienteSeleccionadoDer.add("");
+		estadosSiguientesIngresados.add("");
 
 		// Agrega al campo hidden el nuevo estado
 		setEstadosIngresados(LabelAndValueListHelper.add(getEstadosIngresados(), getEstado()));
@@ -247,23 +220,30 @@ public class FormTipoRequerimiento extends ActionForm {
 		setPropiedad("");
 	}
 
-	/**
-	 * 
-	 */
 	public void quitarEstado() {
 		// Borra la data de los arrays de propiedades del estado que se está borrando
 		int index = LabelAndValueListHelper.indexOnLabelValueArray(getEstadosReales(), getEstadoSeleccionado());
 		propiedadEstados.remove(index);
 		propiedadesIngresadasEstados.remove(index);
+		estadosSiguientesIngresados.remove(index);
+		
+		// Borra de los estados ingresados restantes el estado que se está borrando
+		Iterator iter = estadosSiguientesIngresados.iterator();
+		int i = 0;
+		while (iter.hasNext()) {
+			String estSiguientes = (String) iter.next();
+			setEstadosSiguientesIngresados(i,
+				LabelAndValueListHelper.remove(
+					estSiguientes,
+					getEstadoSeleccionado()));
+			i++;
+		} 
 
 		// Saca del campo hidden el estado borrado
 		setEstadosIngresados(
 			LabelAndValueListHelper.remove(getEstadosIngresados(), getEstadoSeleccionado()));
 	}
 
-	/**
-	 * 
-	 */
 	public void quitarPropiedad() {
 		setPropiedadesIngresadas(
 			LabelAndValueListHelper.remove(getPropiedadesIngresadas(), getPropiedadSeleccionada()));
@@ -298,11 +278,77 @@ public class FormTipoRequerimiento extends ActionForm {
 		setIntoArrayList(propiedadesIngresadasEstados, index, value);
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList getPropiedadesEstados(int index) {
 		return LabelAndValueListHelper.parseBeansList(getPropiedadesIngresadasEstados(index), "<Debe agregar propiedades>");
+	}
+
+	public ArrayList getNombresPropiedadesEstados(int index) {
+		return LabelAndValueListHelper.parseStringList(getPropiedadesIngresadasEstados(index));
+	}
+
+	public void agregarPropiedadEstados(int index) {
+		setPropiedadesIngresadasEstados(index,
+			LabelAndValueListHelper.add(getPropiedadesIngresadasEstados(index), getPropiedadEstados(index)));
+		setPropiedadEstados(index, "");
+	}
+
+	public void quitarPropiedadEstados(int index) {
+		setPropiedadesIngresadasEstados(index,
+			LabelAndValueListHelper.remove(getPropiedadesIngresadasEstados(index), getPropiedadSeleccionadaEstados(index)));
+	}
+
+////////////////////////////
+
+	public String getEstadoSiguienteSeleccionadoIzq(int index) { 
+		try {
+			return (String) estadoSiguienteSeleccionadoIzq.get(index); 
+		} catch (IndexOutOfBoundsException e) {
+			setEstadoSiguienteSeleccionadoIzq(index, "");
+			return (String) estadoSiguienteSeleccionadoIzq.get(index); 
+		}
+	}
+    
+	public void setEstadoSiguienteSeleccionadoIzq(int index, String value) { 
+		setIntoArrayList(estadoSiguienteSeleccionadoIzq, index, value);
+	}
+
+	public String getEstadoSiguienteSeleccionadoDer(int index) { 
+		try {
+			return (String) estadoSiguienteSeleccionadoDer.get(index); 
+		} catch (IndexOutOfBoundsException e) {
+			setEstadoSiguienteSeleccionadoDer(index, "");
+			return (String) estadoSiguienteSeleccionadoDer.get(index); 
+		}
+	}
+    
+	public void setEstadoSiguienteSeleccionadoDer(int index, String value) { 
+		setIntoArrayList(estadoSiguienteSeleccionadoDer, index, value);
+	}
+
+	public String getEstadosSiguientesIngresados(int index) { 
+		return (String) estadosSiguientesIngresados.get(index); 
+	}
+    
+	public void setEstadosSiguientesIngresados(int index, String value) { 
+		setIntoArrayList(estadosSiguientesIngresados, index, value);
+	}
+
+	public ArrayList getEstadosSiguientes(int index) {
+		return LabelAndValueListHelper.parseBeansList(getEstadosSiguientesIngresados(index), "<Debe agregar estados>");
+	}
+
+	public ArrayList getNombresEstadosSiguientes(int index) {
+		return LabelAndValueListHelper.parseStringList(getEstadosSiguientesIngresados(index));
+	}
+
+	public void agregarEstadoSiguiente(int index) {
+		setEstadosSiguientesIngresados(index,
+			LabelAndValueListHelper.add(getEstadosSiguientesIngresados(index), getEstadoSiguienteSeleccionadoIzq(index)));
+	}
+
+	public void quitarEstadoSiguiente(int index) {
+		setEstadosSiguientesIngresados(index,
+			LabelAndValueListHelper.remove(getEstadosSiguientesIngresados(index), getEstadoSiguienteSeleccionadoDer(index)));
 	}
 
 	private void setIntoArrayList(ArrayList array, int index, String value) {
@@ -319,22 +365,4 @@ public class FormTipoRequerimiento extends ActionForm {
 			}
 		}
 	}
-
-	/**
-	 * @param index
-	 */
-	public void agregarPropiedadEstados(int index) {
-		setPropiedadesIngresadasEstados(index,
-			LabelAndValueListHelper.add(getPropiedadesIngresadasEstados(index), getPropiedadEstados(index)));
-		setPropiedadEstados(index, "");
-	}
-
-	/**
-	 * @param index
-	 */
-	public void quitarPropiedadEstados(int index) {
-		setPropiedadesIngresadasEstados(index,
-			LabelAndValueListHelper.remove(getPropiedadesIngresadasEstados(index), getPropiedadSeleccionadaEstados(index)));
-	}
-
 }

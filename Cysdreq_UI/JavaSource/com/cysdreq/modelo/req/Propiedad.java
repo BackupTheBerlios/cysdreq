@@ -10,7 +10,7 @@ package com.cysdreq.modelo.req;
 public class Propiedad {
 
 	private TipoPropiedad tipo;
-	private Object valor;
+	private String valor;
 
 	/**
 	 * 
@@ -35,11 +35,11 @@ public class Propiedad {
 		this.tipo = tipo;
 	}
 
-	public Object getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(Object valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 
