@@ -15,6 +15,16 @@
 		</TD>
 	</TR>
 	<TR>
+		<TD>
+			<html:link page="/altaRequerimiento.jsp">Dar de alta un requerimiento</html:link>
+		</TD>
+	</TR>	
+	<TR>
+		<TD>
+			<html:link page="/altaRequerimiento.jsp">Listado de requerimientos</html:link>
+		</TD>
+	</TR>		
+	<TR>
 		<TD border=1><BR>
 		</TD>
 	</TR>
@@ -30,6 +40,11 @@
 	</TR>
 	<TR>	
 		<TD>
+			<html:link page="/altaRequerimiento.jsp">Agregar un requerimiento al proyecto</html:link>
+		</TD>
+	</TR>	
+	<TR>	
+		<TD>
 			<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>
 		</TD>
 	</TR>
@@ -38,4 +53,5 @@
 			<html:link page="/tipoRequerimiento.jsp">Agregar un tipo de requerimiento al proyecto</html:link>
 		</TD>
 	</TR>	
+	
 </TABLE>

@@ -66,7 +66,7 @@ public class Proyecto {
 		this.roles = roles;
 	}
 
-	protected ArrayList getTiposRequerimientos() {
+	public ArrayList getTiposRequerimientos() {
 		if (tiposRequerimientos == null)
 			tiposRequerimientos = new ArrayList();		
 		return tiposRequerimientos;
@@ -113,4 +113,36 @@ public class Proyecto {
 		return null;
 					
 	}
+	public TipoRequerimiento getTipoRequerimiento(String nombreTipo){
+		
+		Iterator iter = this.getTiposRequerimientos().iterator();
+		while (iter.hasNext()) {
+			TipoRequerimiento tipoRequerimiento = (TipoRequerimiento) iter.next();
+			if (tipoRequerimiento.getNombre().equals(nombreTipo)){
+				return tipoRequerimiento;
+			}	
+		}
+		
+		return null;
+					
+	}
+
+	/**
+	 * @param usuario
+	 * @return
+	 */
+	public Miembro getMiembro(Usuario usuario) {
+
+		Iterator iter = this.getMiembros().iterator();
+		while (iter.hasNext()) {
+			Miembro miembro = (Miembro) iter.next();
+			if (miembro.getUsuario().getUsuario().equals(usuario.getUsuario())){
+				return miembro;
+			}	
+		}
+		
+		return null;		
+		
+	}
+	
 }

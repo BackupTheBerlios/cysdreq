@@ -19,6 +19,8 @@ import com.cysdreq.modelo.Miembro;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.Rol;
 import com.cysdreq.modelo.Usuario;
+import com.cysdreq.modelo.flow.TipoEstado;
+import com.cysdreq.modelo.req.TipoRequerimiento;
 import com.poet.jdo.PersistenceManagers;
 import com.poet.jdo.admin.DatabaseAdministration;
 
@@ -132,7 +134,14 @@ public class Loader {
 		roles.add(rolProyecto);
 		Miembro miembro = new Miembro(usuario, roles);
 		proyecto.agregarMiembro(miembro);
-
+		
+		TipoEstado tipoEstado = new TipoEstado("Analisis"); 
+		
+		// Agrega un tipo de requerimiento de prueba
+		TipoRequerimiento tipo = new TipoRequerimiento("Primer tipo de prueba", new ArrayList() , tipoEstado, new ArrayList());
+		
+		proyecto.agregarTipoRequerimiento(tipo);
+		
 		System.out.println("Se agregó data de inicialización para testing");
 	}
 

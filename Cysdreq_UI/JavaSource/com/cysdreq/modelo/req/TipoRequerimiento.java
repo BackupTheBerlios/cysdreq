@@ -42,7 +42,7 @@ public class TipoRequerimiento {
 		this.setTiposPropiedades(tiposPropiedades);
 	}
 
-	protected String getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
