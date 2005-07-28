@@ -34,6 +34,8 @@
 		</form-bean>
 		<form-bean name="formListadoUsuarios" type="cysdreq_ui.forms.FormListadoUsuarios">
 		</form-bean>
+		<form-bean name="formTiposDeRequerimientos" type="cysdreq_ui.forms.FormTiposDeRequerimientos">
+		</form-bean>
 	</form-beans>
 
 	<!-- Global Exceptions -->
@@ -90,6 +92,12 @@
 		</action>
 		<action name="formListadoUsuarios" path="/listadoUsuarios" scope="request" type="cysdreq_ui.actions.ListadoUsuariosAction" input="/listadoUsuarios.jsp">
 			<forward name="error" path="/listadoUsuarios.jsp">
+			</forward>
+		</action>
+		<action name="formTiposDeRequerimientos" path="/tiposDeRequerimientos" scope="request" type="cysdreq_ui.actions.TiposDeRequerimientosAction" input="/tiposDeRequerimientos.jsp">
+			<forward name="error" path="/tiposDeRequerimientos.jsp">
+			</forward>
+			<forward name="success" path="/tipoRequerimiento.jsp">
 			</forward>
 		</action>
 	</action-mappings>

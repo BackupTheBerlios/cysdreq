@@ -6,9 +6,7 @@
  */
 package cysdreq_ui.actions;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +18,13 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 
 import com.cysdreq.acciones.proyecto.AgregarTipoRequerimiento;
+import com.cysdreq.acciones.proyecto.ModificarTipoRequerimiento;
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Proyecto;
+import com.cysdreq.modelo.req.TipoRequerimiento;
 import com.cysdreq.util.LabelAndValueListHelper;
 import com.cysdreq.util.PersistentArrayList;
 
@@ -55,11 +54,6 @@ public class GuardarTipoRequerimientoAction extends Action {
 			String action = parseAction(formTipoRequerimiento.getAction());
 			String stateAction = parseState(formTipoRequerimiento.getAction());
 		
-			System.out.println("ESTE ES EL ACTION:");
-			System.out.println(action);
-			System.out.println(stateAction);
-			System.out.println();
-
 			// el default es continuar con la misma página
 			forward = mapping.findForward("continue");
 
@@ -183,9 +177,17 @@ public class GuardarTipoRequerimientoAction extends Action {
 						params.put("estadosSiguientes", estadosSiguientes);
 						params.put("propiedadesDeEstados", propiedadesDeEstados);
 
-						cysdreq.ejecutarAccion(new AgregarTipoRequerimiento(), proyecto, params);
+						// Llama a la acción adecuada según corresponda
+						if (formTipoRequerimiento.isModificacion()) {
+							TipoRequerimiento tipoRequerimiento = proyecto.getTipoRequerimiento(formTipoRequerimiento.getNombre());
+							params.put("tipoRequerimiento", tipoRequerimiento);
+							cysdreq.ejecutarAccion(new ModificarTipoRequerimiento(), proyecto, params);
+							
+						} else {
+							cysdreq.ejecutarAccion(new AgregarTipoRequerimiento(), proyecto, params);
+						}
 					}
-				
+
 					SessionManager.commit();
 
 					forward = mapping.findForward("globalSuccess");

@@ -32,6 +32,10 @@ public class FormTipoRequerimiento extends ActionForm {
 	public static final String ACCION_QUITAR_PROPIEDAD = "Quitar Propiedad";
 	public static final String ACCION_GUARDAR_TIPO = "Guardar Tipo de Requerimiento";
 
+	// Estas dos variables son para usar la misma página como modificación
+	private boolean modificacion = false;
+	private String nombreTipoModificado = "";
+
 	private String nombre = "";
 	private String action = "";
 
@@ -365,4 +369,32 @@ public class FormTipoRequerimiento extends ActionForm {
 			}
 		}
 	}
+	/**
+	 * @return
+	 */
+	public boolean isModificacion() {
+		return modificacion;
+	}
+
+	/**
+	 * @param b
+	 */
+	public void setModificacion(boolean b) {
+		modificacion = b;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getNombreTipoModificado() {
+		return nombreTipoModificado;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setNombreTipoModificado(String string) {
+		nombreTipoModificado = string;
+	}
+
 }

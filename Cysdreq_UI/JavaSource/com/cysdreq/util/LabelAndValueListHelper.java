@@ -109,4 +109,19 @@ public class LabelAndValueListHelper {
 		}
 		return -1;
 	}
+
+	/**
+	 * @param nombresEstados
+	 * @return
+	 */
+	public static String renderArrayList(ArrayList list) {
+		StringBuffer result = new StringBuffer();
+		Iterator iter = list.iterator();
+		while (iter.hasNext()) {
+			String value = (String) iter.next();
+			result.append(SEP);
+			result.append(value.trim());
+		}
+		return result.toString();
+	}
 }

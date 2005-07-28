@@ -46,7 +46,7 @@ public class TipoRequerimiento {
 		return nombre;
 	}
 
-	protected void setNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -58,11 +58,11 @@ public class TipoRequerimiento {
 		this.tipoEstadoInicial = tipoEstadoInicial;
 	}
 
-	protected ArrayList getTiposDeEstados() {
+	public ArrayList getTiposDeEstados() {
 		return tiposDeEstados;
 	}
 
-	protected void setTiposDeEstados(ArrayList tiposDeEstados) {
+	public void setTiposDeEstados(ArrayList tiposDeEstados) {
 		this.tiposDeEstados = tiposDeEstados;
 	}
 
@@ -84,7 +84,7 @@ public class TipoRequerimiento {
 		return tiposPropiedades;
 	}
 
-	protected void setTiposPropiedades(ArrayList tiposPropiedades) {
+	public void setTiposPropiedades(ArrayList tiposPropiedades) {
 		this.tiposPropiedades = tiposPropiedades;
 	}
 

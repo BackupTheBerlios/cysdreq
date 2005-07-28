@@ -60,6 +60,11 @@
 	</TR>
 	<TR>	
 		<TD>
+			<html:link page="/tiposDeRequerimientos.jsp">Ver/Modificar/Eliminar tipos de requerimientos del proyecto</html:link>
+		</TD>
+	</TR>	
+	<TR>	
+		<TD>
 			<html:link page="/tipoRequerimiento.jsp">Agregar un tipo de requerimiento al proyecto</html:link>
 		</TD>
 	</TR>	

@@ -132,6 +132,8 @@
 
 								<html:hidden property="estadosIngresados"/>
 								<html:hidden property="propiedadesIngresadas"/>
+								<html:hidden property="modificacion"/>
+								<html:hidden property="nombreTipoModificado"/>
 							</html:form>
 						</TD>
 					</TR>

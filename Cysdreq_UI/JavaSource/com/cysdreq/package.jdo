@@ -10,6 +10,7 @@
     <class name="AgregarRequerimiento" requires-extent="true" identity-type="datastore"/>
     <class name="AgregarRolProyecto" requires-extent="true" identity-type="datastore"/>
     <class name="AgregarTipoRequerimiento" requires-extent="true" identity-type="datastore"/>
+    <class name="ModificarTipoRequerimiento" requires-extent="true" identity-type="datastore"/>
   </package>
   <package name="com.cysdreq.acciones.sistema">
     <class name="AgregarProyecto" requires-extent="true" identity-type="datastore"/>
