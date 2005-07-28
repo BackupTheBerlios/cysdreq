@@ -50,9 +50,15 @@
 							</tr>
 							<tr>
 							    <td width="50%" align="right">Password:</td>
-							    <td width="50%" align="left"><html:text property="password" size="50" maxlength="150"/></td>
+							    <td width="50%" align="left"><html:password property="password" size="50" maxlength="150"/></td>
 							</tr>
-							
+							<tr>
+							    <td width="50%" align="right">Seleccione uno de los siguientes roles de sistema:
+							    	<html:select property="rolesSeleccionados" size="10" multiple="true">
+							    		<html:optionsCollection property="roles"/>
+							    	</html:select>
+							    </td>
+							</tr>							
 							<tr>
 							    <td width="50%" align="center" colspan="2"><html:submit>Agregar</html:submit></td>
 							</tr>

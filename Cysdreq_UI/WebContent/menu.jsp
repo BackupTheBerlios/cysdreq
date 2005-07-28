@@ -1,5 +1,8 @@
 <TABLE>
 	<TR>
+		<TD border=1><b>Acciones del Sistema</b></TD>
+	</TR>
+	<TR>
 		<TD>
 			<html:link page="/agregarUsuario.jsp">Agregar Usuario</html:link>
 		</TD>
@@ -24,14 +27,21 @@
 			<html:link page="/altaRequerimiento.jsp">Listado de requerimientos</html:link>
 		</TD>
 	</TR>		
-	<TR>
-		<TD border=1><BR>
-		</TD>
-	</TR>
 	<TR>	
 		<TD>
 			<html:link page="/ingresarAProyecto.jsp">Ingresar a un proyecto</html:link>
 		</TD>
+	</TR>
+	<TR>	
+		<TD>
+			<html:link page="/listadoUsuarios.jsp">Ver listado de usuarios del Sistema</html:link>
+		</TD>
+	</TR>		
+	<TR>
+		<TD border=1><BR></TD>
+	</TR>
+	<TR>
+		<TD border=1><b>Acciones del Proyecto</b></TD>
 	</TR>
 	<TR>	
 		<TD>

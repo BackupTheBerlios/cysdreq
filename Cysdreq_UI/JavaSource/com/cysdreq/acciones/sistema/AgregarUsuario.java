@@ -3,11 +3,13 @@
  */
 package com.cysdreq.acciones.sistema;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Usuario;
+import com.cysdreq.util.PersistentArrayList;
 
 /**
  * @author Daniel Nanni
@@ -30,8 +32,10 @@ public class AgregarUsuario extends TipoAccion {
 		String nombre = (String) parametros.get("nombreUsuario");
 		String usuario = (String) parametros.get("usuario");
 		String password = (String) parametros.get("password");
-		
-		sistema.agregarUsuario(new Usuario(nombre, usuario, password));
+		PersistentArrayList roles = (PersistentArrayList) parametros.get("roles");
+		ArrayList copiaRoles = (ArrayList) roles.getWrappedArrayList().clone();
+				
+		sistema.agregarUsuario(new Usuario(nombre, usuario, password, copiaRoles));
 	}
 
 	/* (non-Javadoc)

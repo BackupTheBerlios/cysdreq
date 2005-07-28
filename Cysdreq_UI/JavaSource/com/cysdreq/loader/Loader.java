@@ -98,11 +98,12 @@ public class Loader {
 		cysdreq.agregarRol(rolProyecto);
 
 		// Agrega un usuario root con roles de administrador al sistema
-		Usuario usuario = new Usuario("root user", "root", "nousar");
 		ArrayList roles = new ArrayList();
 		roles.add(rolSistema);
 		roles.add(rolProyecto);
-		usuario.setRoles(roles);
+		
+		Usuario usuario = new Usuario("root user", "root", "nousar", roles);
+
 		cysdreq.agregarUsuario(usuario);
 
 		System.out.println("Se agregó data de inicialización básica");
@@ -119,10 +120,10 @@ public class Loader {
 		cysdreq.agregarRol(rolProyecto);
 
 		// Agrega un usuario test con un rol generico al sistema
-		Usuario usuario = new Usuario("test user", "test", "test");
 		ArrayList roles = new ArrayList();
 		roles.add(rolSistema);
-		usuario.setRoles(roles);
+
+		Usuario usuario = new Usuario("test user", "test", "test", roles);
 		cysdreq.agregarUsuario(usuario);
 
 		// Agrega un proyecto al sistema

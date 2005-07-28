@@ -43,10 +43,11 @@ public class AgregarUsuarioAction extends Action {
 
 			// Agrega el usuario
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
-			HashMap params = new HashMap(3);
+			HashMap params = new HashMap(4);
 			params.put("nombreUsuario", formAgregarUsuario.getNombre());
 			params.put("usuario", formAgregarUsuario.getUsuario());
 			params.put("password", formAgregarUsuario.getPassword());
+			params.put("roles", formAgregarUsuario.getRolesPersistentesSeleccionados());
 			cysdreq.ejecutarAccion(new AgregarUsuario(), cysdreq, params);
 			
 			SessionManager.commit();			

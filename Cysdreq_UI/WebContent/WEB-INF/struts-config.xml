@@ -32,6 +32,8 @@
 		</form-bean>
 		<form-bean name="formAltaRequerimiento" type="cysdreq_ui.forms.FormAltaRequerimiento">
 		</form-bean>
+		<form-bean name="formListadoUsuarios" type="cysdreq_ui.forms.FormListadoUsuarios">
+		</form-bean>
 	</form-beans>
 
 	<!-- Global Exceptions -->
@@ -84,6 +86,10 @@
 		</action>
 		<action path="/altaRequerimiento" type="cysdreq_ui.actions.AltaRequerimientoAction" input="/altaRequerimiento.jsp" name="formAltaRequerimiento" scope="request">
 			<forward name="error" path="/altaRequerimiento.jsp">
+			</forward>
+		</action>
+		<action name="formListadoUsuarios" path="/listadoUsuarios" scope="request" type="cysdreq_ui.actions.ListadoUsuariosAction" input="/listadoUsuarios.jsp">
+			<forward name="error" path="/listadoUsuarios.jsp">
 			</forward>
 		</action>
 	</action-mappings>

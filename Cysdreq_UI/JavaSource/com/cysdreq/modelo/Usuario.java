@@ -26,11 +26,12 @@ public class Usuario {
 	/**
 	 * Crea un usuario con nombre, usuario y password iguales
 	 */
-	public Usuario(String nombre, String usuario, String password) {
+	public Usuario(String nombre, String usuario, String password, ArrayList roles) {
 		super();
 		this.setNombre(nombre);
 		this.setUsuario(usuario);
 		this.setPassword(password);
+		this.setRoles(roles);
 	}
 
 	public String getNombre() {

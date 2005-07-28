@@ -107,7 +107,7 @@ public final class Cysdreq {
 		getUsuarios().add(usuario);
 	}
 
-	protected ArrayList getRoles() {
+	public ArrayList getRoles() {
 		if (roles == null) {
 			roles = new ArrayList();
 		}
@@ -164,4 +164,17 @@ public final class Cysdreq {
 		
 		return null;
 	}
+	public Rol getRolPorNombre(String nombreRol){
+		
+		Iterator iter = this.getRoles().iterator();
+		while (iter.hasNext()) {
+			Rol rol = (Rol) iter.next();
+			if (rol.getNombre().equals(nombreRol)){
+				return rol;
+			}	
+		}
+		
+		return null;
+					
+	}	
 }
