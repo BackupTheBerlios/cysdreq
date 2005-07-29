@@ -91,7 +91,7 @@ public class TipoRequerimiento {
 	public Requerimiento nuevoRequerimiento(Miembro propietario, Miembro responsable) {
 		Estado estadoInicial = this.getTipoEstadoInicial().nuevoEstado(responsable);
 		ArrayList propiedades = generarPropiedades(this.getTiposPropiedades());
-		Requerimiento req = new Requerimiento(estadoInicial, propietario, propiedades);
+		Requerimiento req = new Requerimiento(estadoInicial, propietario, propiedades, this);
 
 		return req;
 	}

@@ -82,6 +82,7 @@ contentType="text/html; charset=ISO-8859-1"
 						    </td>
 						</tr>
 					</table>
+					<html:hidden property="nombreTipoReqSelHidden"/>
 				</html:form>
 			</TD>
 		</TR>

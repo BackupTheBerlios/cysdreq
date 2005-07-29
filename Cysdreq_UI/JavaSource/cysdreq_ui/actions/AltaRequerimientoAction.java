@@ -45,6 +45,10 @@ import cysdreq_ui.forms.FormAltaRequerimiento;
  */
 public class AltaRequerimientoAction extends Action {
 	
+	public AltaRequerimientoAction() {
+		super();
+	}
+
 	public ActionForward execute(
 		ActionMapping mapping,
 		ActionForm form,
@@ -78,30 +82,9 @@ public class AltaRequerimientoAction extends Action {
 				if (nombreTipo == null) {
 					errors.add(	"requerimiento", new ActionError("errors.requerimiento.tipoNoSeleccionado"));
 				} else {
-					TipoRequerimiento tipoReq = proyecto.getTipoRequerimiento(nombreTipo);
-
-					ArrayList propiedades;
-					Iterator iter;
-					
-					// Arma las propiedades generales
-					propiedades = new ArrayList();
-					iter = tipoReq.getTiposPropiedades().iterator();
-					while (iter.hasNext()) {
-						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
-						propiedades.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
-					}
-					formAltaRequerimiento.setPropiedadesGenerales(propiedades);
-
-					// Arma las propiedades del estado
-					propiedades = new ArrayList();
-					iter = tipoReq.getTipoEstadoInicial().getTiposPropiedades().iterator();
-					while (iter.hasNext()) {
-						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
-						propiedades.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
-					}
-					formAltaRequerimiento.setPropiedadesEstado(propiedades);
+					formAltaRequerimiento.setNombreTipoReqSelHidden(nombreTipo);
 				}
-	
+
 			} else if (action.equals(FormAltaRequerimiento.ACCION_GUARDAR_REQUERIMIENTO)) {
 	
 				Usuario usuario = cysdreq.getUsuario(userBean.getUsername());

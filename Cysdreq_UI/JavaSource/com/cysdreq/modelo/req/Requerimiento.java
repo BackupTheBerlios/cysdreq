@@ -37,11 +37,13 @@ public class Requerimiento {
 	 */
 	public Requerimiento(Estado estadoInicial,
 						 Miembro propietario,
-						 ArrayList propiedades) {
+						 ArrayList propiedades,
+						 TipoRequerimiento tipoReq) {
 		super();
 		this.setEstadoActual(estadoInicial);
 		this.setPropietario(propietario);
 		this.setPropiedades(propiedades);
+		this.setTipo(tipoReq);
 
 		// Setea el próximo Id a usar
 		Cysdreq cysdreq = Cysdreq.getPersistentInstance();

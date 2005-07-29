@@ -20,6 +20,7 @@ import org.apache.struts.util.LabelValueBean;
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Proyecto;
+import com.cysdreq.modelo.req.TipoPropiedad;
 import com.cysdreq.modelo.req.TipoRequerimiento;
 import com.cysdreq.util.LabelAndValueListHelper;
 import com.cysdreq.util.PersistentArrayList;
@@ -44,41 +45,46 @@ public class FormAltaRequerimiento extends ActionForm {
 	private String action = "";
 	private ArrayList tiposRequerimientos = null;
 	private String nombreTipoRequerimientoSeleccionado = null;
-	private ArrayList propiedadesGenerales = new ArrayList();
-	private ArrayList propiedadesEstado = new ArrayList();
+	private ArrayList propiedadesGenerales = null;
+	private ArrayList propiedadesEstado = null;
+	private String nombreTipoReqSelHidden = "";
+	private UserBean userBean;
  
+	public FormAltaRequerimiento() {
+		super();
+	}
 
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 
 		// Reset values are provided as samples only. Change as appropriate.
 
+		HttpSession session = request.getSession();
+
 		nombreTipoRequerimientoSeleccionado ="";
 
-		HttpSession session = request.getSession();
-		
 		try {
 			// obtiene la transacción asociada al administrador de persistencia.
 			SessionManager.beginTransaction();
-			UserBean userBean = (UserBean) session.getAttribute(LogonAction.USER_KEY);
+			setUserBean((UserBean) session.getAttribute(LogonAction.USER_KEY));
 
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			Proyecto proyecto = cysdreq.getProyecto(userBean.getNombreProyecto());
-										
+
 			ArrayList tiposRequerimientosExistentes =  proyecto.getTiposRequerimientos();
-			
+
 			tiposRequerimientos = new ArrayList();
-			
+
 			Iterator iter = tiposRequerimientosExistentes.iterator();
 			while (iter.hasNext()) {
 				TipoRequerimiento tipoRequerimiento = (TipoRequerimiento) iter.next();
-				
+
 				tiposRequerimientos.add(new LabelValueBean(tipoRequerimiento.getNombre(), tipoRequerimiento.getNombre()));
 			}
-				
+
 			SessionManager.commit();
 		} catch (Throwable t) {
-			SessionManager.rollback();
 			t.printStackTrace();
+			SessionManager.rollback();
 			System.out.println("Error al recuperar los tipos de requerimientos del proyecto");
 		}
 	
@@ -140,6 +146,34 @@ public class FormAltaRequerimiento extends ActionForm {
 	 * @return
 	 */
 	public ArrayList getPropiedadesEstado() {
+		if (propiedadesEstado == null) {
+			propiedadesEstado = new ArrayList();
+			if (getNombreTipoReqSelHidden().length() > 0) {
+				try {
+					SessionManager.beginTransaction();
+			
+					String nombreTipo = getNombreTipoReqSelHidden();
+					Cysdreq cysdreq = Cysdreq.getPersistentInstance();
+					Proyecto proyecto = cysdreq.getProyecto(getUserBean().getNombreProyecto());
+			
+					TipoRequerimiento tipoReq = proyecto.getTipoRequerimiento(nombreTipo);
+		
+					ArrayList propiedades;
+					Iterator iter;
+						
+					// Arma las propiedades del estado
+					iter = tipoReq.getTipoEstadoInicial().getTiposPropiedades().iterator();
+					while (iter.hasNext()) {
+						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
+						propiedadesEstado.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
+					}
+					SessionManager.commit();			
+				} catch (Throwable e) {
+					e.printStackTrace();
+					SessionManager.rollback();
+				}
+			}
+		}
 		return propiedadesEstado;
 	}
 
@@ -159,6 +193,34 @@ public class FormAltaRequerimiento extends ActionForm {
 	 * @return
 	 */
 	public ArrayList getPropiedadesGenerales() {
+		if (propiedadesGenerales == null) {
+			propiedadesGenerales = new ArrayList();
+			if (getNombreTipoReqSelHidden().length() > 0) {
+				try {
+					SessionManager.beginTransaction();
+			
+					String nombreTipo = getNombreTipoReqSelHidden();
+					Cysdreq cysdreq = Cysdreq.getPersistentInstance();
+					Proyecto proyecto = cysdreq.getProyecto(getUserBean().getNombreProyecto());
+			
+					TipoRequerimiento tipoReq = proyecto.getTipoRequerimiento(nombreTipo);
+		
+					ArrayList propiedades;
+					Iterator iter;
+						
+					// Arma las propiedades generales
+					iter = tipoReq.getTiposPropiedades().iterator();
+					while (iter.hasNext()) {
+						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
+						propiedadesGenerales.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
+					}
+					SessionManager.commit();			
+				} catch (Throwable e) {
+					e.printStackTrace();
+					SessionManager.rollback();
+				}
+			}
+		}
 		return propiedadesGenerales;
 	}
 
@@ -175,17 +237,31 @@ public class FormAltaRequerimiento extends ActionForm {
 	}
 
 	/**
-	 * @param list
+	 * @return
 	 */
-	public void setPropiedadesEstado(ArrayList list) {
-		propiedadesEstado = list;
+	public String getNombreTipoReqSelHidden() {
+		return nombreTipoReqSelHidden;
 	}
 
 	/**
-	 * @param list
+	 * @param string
 	 */
-	public void setPropiedadesGenerales(ArrayList list) {
-		propiedadesGenerales = list;
+	public void setNombreTipoReqSelHidden(String string) {
+		nombreTipoReqSelHidden = string;
+	}
+
+	/**
+	 * @return
+	 */
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	/**
+	 * @param bean
+	 */
+	public void setUserBean(UserBean bean) {
+		userBean = bean;
 	}
 
 }

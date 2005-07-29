@@ -90,7 +90,7 @@
 			<forward name="continue" path="/tipoRequerimiento.jsp">
 			</forward>
 		</action>
-		<action path="/altaRequerimiento" type="cysdreq_ui.actions.AltaRequerimientoAction" input="/altaRequerimiento.jsp" name="formAltaRequerimiento" scope="request">
+		<action path="/altaRequerimiento" type="cysdreq_ui.actions.AltaRequerimientoAction" input="/altaRequerimiento.jsp" name="formAltaRequerimiento" scope="request" unknown="false">
 			<forward name="error" path="/altaRequerimiento.jsp">
 			</forward>
 			<forward name="continue" path="/altaRequerimiento.jsp">
