@@ -16,6 +16,7 @@
     <class name="AgregarProyecto" requires-extent="true" identity-type="datastore"/>
     <class name="AgregarRolSistema" requires-extent="true" identity-type="datastore"/>
     <class name="AgregarUsuario" requires-extent="true" identity-type="datastore"/>
+	<class name="EliminarProyecto" requires-extent="true" identity-type="datastore"/>    
   </package>
   <package name="com.cysdreq.modelo">
     <class name="Cysdreq" requires-extent="true" identity-type="datastore"/>

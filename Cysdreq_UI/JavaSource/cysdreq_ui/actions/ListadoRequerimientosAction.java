@@ -66,6 +66,7 @@ public class ListadoRequerimientosAction extends Action {
 				Requerimiento requerimiento = (Requerimiento) iterator.next();
 			
 				//String nombreTipoReq = requerimiento.getTipo().getNombre();
+				String nombreTipoReq = "Primer tipo de prueba";
 				String nombreEstadoAct = requerimiento.getEstadoActual().getTipo().getNombre();
 				String nombrePropietario = requerimiento.getPropietario().getUsuario().getNombre();
 				String nombreResponsable = requerimiento.getEstadoActual().getResponsable().getUsuario().getNombre();
@@ -81,8 +82,8 @@ public class ListadoRequerimientosAction extends Action {
 
 				if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals("") && incluir) {
 					
-					//if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals(nombreTipoReq)){
-					if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals("Primer tipo de prueba")){
+					if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals(nombreTipoReq)){
+					//if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals("Primer tipo de prueba")){
 						incluir = false;
 					}
 				}
@@ -95,7 +96,7 @@ public class ListadoRequerimientosAction extends Action {
 				}
 				
 				if (incluir) {
-					formListadoRequerimientos.getRequerimientosReales().add(new ListadoRequerimientosBean("nombreTipoReq", nombreEstadoAct, nombrePropietario, nombreResponsable));
+					formListadoRequerimientos.getRequerimientosReales().add(new ListadoRequerimientosBean(nombreTipoReq, nombreEstadoAct, nombrePropietario, nombreResponsable));
 				}
 			}			
 			
@@ -131,9 +132,9 @@ public class ListadoRequerimientosAction extends Action {
 			iter = tiposDeEstadosExistentes.iterator();
 		
 			while (iter.hasNext()) {
-				TipoEstado tipoEstado = (TipoEstado) iter.next();
+				String nombreTipoEstado = (String) iter.next();
 			
-				formListadoRequerimientos.getTiposEstados().add(new LabelValueBean(tipoEstado.getNombre(),tipoEstado.getNombre()));
+				formListadoRequerimientos.getTiposEstados().add(new LabelValueBean(nombreTipoEstado,nombreTipoEstado));
 			}
 								
 			SessionManager.commit();
@@ -141,7 +142,7 @@ public class ListadoRequerimientosAction extends Action {
 		} catch (Throwable t) {
 			t.printStackTrace();
 			SessionManager.rollback();
-			errors.add("name", new ActionError("id"));
+			errors.add("requerimiento", new ActionError("errors.listadoRequerimientos.recuperarRequerimientos"));
 		}
 
 		// If a message is required, save the specified key(s)

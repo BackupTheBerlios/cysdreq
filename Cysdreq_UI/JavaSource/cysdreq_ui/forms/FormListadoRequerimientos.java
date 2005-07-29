@@ -197,9 +197,9 @@ public class FormListadoRequerimientos extends ActionForm {
 			iter = tiposEstadosExistentes.iterator();
 			
 			while (iter.hasNext()) {
-				TipoEstado tipoEstado = (TipoEstado) iter.next();
+				String nombreTipoEstado = (String) iter.next();
 				
-				tiposEstados.add(new LabelValueBean(tipoEstado.getNombre(),tipoEstado.getNombre()));
+				tiposEstados.add(new LabelValueBean(nombreTipoEstado,nombreTipoEstado));
 			}
 									
 			SessionManager.commit();

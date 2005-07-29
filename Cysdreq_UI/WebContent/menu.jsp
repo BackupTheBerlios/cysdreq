@@ -27,6 +27,11 @@
 			<html:link page="/listadoUsuarios.jsp">Ver listado de usuarios del Sistema</html:link>
 		</TD>
 	</TR>		
+	<TR>	
+		<TD>
+			<html:link page="/eliminarProyecto.jsp">Eliminar un proyecto</html:link>
+		</TD>
+	</TR>	
 	<TR>
 		<TD><BR></TD>
 	</TR>

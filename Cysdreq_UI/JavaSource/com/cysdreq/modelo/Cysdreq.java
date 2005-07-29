@@ -67,6 +67,10 @@ public final class Cysdreq {
 		getProyectos().add(p);
 	}
 
+	public void eliminarProyecto(Proyecto p) {
+		getProyectos().remove(p);
+	}
+	
 	public ArrayList getProyectos() {
 		if (proyectos == null)
 			proyectos = new ArrayList();
