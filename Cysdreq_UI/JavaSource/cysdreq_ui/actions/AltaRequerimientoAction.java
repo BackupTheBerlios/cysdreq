@@ -6,7 +6,9 @@
  */
 package cysdreq_ui.actions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +20,17 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 import com.cysdreq.acciones.proyecto.AgregarRequerimiento;
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.Usuario;
+import com.cysdreq.modelo.req.TipoPropiedad;
+import com.cysdreq.modelo.req.TipoRequerimiento;
+import com.cysdreq.util.PersistentArrayList;
+import com.cysdreq.util.PersistentMap;
 
 import cysdreq_ui.bean.UserBean;
 import cysdreq_ui.forms.FormAltaRequerimiento;
@@ -50,35 +57,78 @@ public class AltaRequerimientoAction extends Action {
 		// return value
 		FormAltaRequerimiento formAltaRequerimiento = (FormAltaRequerimiento) form;
 
+		String action = formAltaRequerimiento.getAction();
+
 		try {
 			SessionManager.beginTransaction();
-
+	
 			HttpSession session = request.getSession();
 			UserBean userBean = (UserBean) session.getAttribute(LogonAction.USER_KEY);
-						
+							
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			Proyecto proyecto = cysdreq.getProyecto(userBean.getNombreProyecto());
-			Usuario usuario = cysdreq.getUsuario(userBean.getUsername());
-			
-			if (proyecto == null) {
-				errors.add(	"usuario",	new ActionError("errors.miembro.proyectoInexistente"));
 
-			} else if (usuario == null) {
-				errors.add(	"usuario", new ActionError("errors.miembro.usuarioInexistente"));
-			
-			} else if( proyecto.getMiembro(usuario) == null){
-				errors.add(	"usuario", new ActionError("errors.miembro.miembroInexistente"));
-			} else {							
-			
-				HashMap params = new HashMap(3);
-				params.put("tipoRequerimiento", formAltaRequerimiento.getTipoRequerimientoSeleccionado(proyecto));
-				params.put("propietario", proyecto.getMiembro(usuario));
-				params.put("responsable", proyecto.getMiembro(usuario));
-				cysdreq.ejecutarAccion(new AgregarRequerimiento(), proyecto, params);
+			// Selección de tipo de requerimiento
+			if        (action.equals(FormAltaRequerimiento.ACCION_SELECCIONAR_TIPO)) {
+				// el default es continuar con la misma página
+				forward = mapping.findForward("continue");
+	
+				String nombreTipo = formAltaRequerimiento.getNombreTipoRequerimientoSeleccionado();
+	
+				if (nombreTipo == null) {
+					errors.add(	"requerimiento", new ActionError("errors.requerimiento.tipoNoSeleccionado"));
+				} else {
+					TipoRequerimiento tipoReq = proyecto.getTipoRequerimiento(nombreTipo);
+
+					ArrayList propiedades;
+					Iterator iter;
+					
+					// Arma las propiedades generales
+					propiedades = new ArrayList();
+					iter = tipoReq.getTiposPropiedades().iterator();
+					while (iter.hasNext()) {
+						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
+						propiedades.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
+					}
+					formAltaRequerimiento.setPropiedadesGenerales(propiedades);
+
+					// Arma las propiedades del estado
+					propiedades = new ArrayList();
+					iter = tipoReq.getTipoEstadoInicial().getTiposPropiedades().iterator();
+					while (iter.hasNext()) {
+						TipoPropiedad tipoPropiedad = (TipoPropiedad) iter.next();
+						propiedades.add(new LabelValueBean(tipoPropiedad.getNombre(), ""));
+					}
+					formAltaRequerimiento.setPropiedadesEstado(propiedades);
+				}
+	
+			} else if (action.equals(FormAltaRequerimiento.ACCION_GUARDAR_REQUERIMIENTO)) {
+	
+				Usuario usuario = cysdreq.getUsuario(userBean.getUsername());
+				
+				if (proyecto == null) {
+					errors.add(	"usuario",	new ActionError("errors.requerimiento.proyectoInexistente"));
+	
+				} else if (usuario == null) {
+					errors.add(	"usuario", new ActionError("errors.requerimiento.usuarioInexistente"));
+				
+				} else if( proyecto.getMiembro(usuario) == null){
+					errors.add(	"usuario", new ActionError("errors.requerimiento.miembroInexistente"));
+				} else {							
+				
+					HashMap params = new HashMap(5);
+					params.put("tipoRequerimiento", formAltaRequerimiento.getTipoRequerimientoSeleccionado(proyecto));
+					params.put("propietario", proyecto.getMiembro(usuario));
+					params.put("responsable", proyecto.getMiembro(usuario));
+					params.put("propiedadesGenerales", formAltaRequerimiento.getPropiedadesGeneralesPersistentes());
+					params.put("propiedadesEstado", formAltaRequerimiento.getPropiedadesEstadoPersistentes());
+					cysdreq.ejecutarAccion(new AgregarRequerimiento(), proyecto, params);
+				}
+				
+				forward = mapping.findForward("globalSuccess");
 			}
-			
-				SessionManager.commit();			
 
+			SessionManager.commit();			
 		} catch (Throwable e) {
 			e.printStackTrace();
 			SessionManager.rollback();
@@ -88,8 +138,7 @@ public class AltaRequerimientoAction extends Action {
 		if (!errors.isEmpty()) {
 			saveErrors(request, errors);
 			forward = mapping.findForward("error");
-		} else
-			forward = mapping.findForward("globalSuccess");
+		}
 	
 		return (forward);
 

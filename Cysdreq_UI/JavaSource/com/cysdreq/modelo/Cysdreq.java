@@ -10,6 +10,8 @@ import java.util.Iterator;
 import com.cysdreq.acciones.Accion;
 import com.cysdreq.acciones.TipoAccion;
 import com.cysdreq.loader.SessionManager;
+import com.cysdreq.modelo.req.Requerimiento;
+import com.cysdreq.util.Numeradores;
 import com.poet.jdo.PersistenceManagers;
 
 /**
@@ -24,14 +26,23 @@ public final class Cysdreq {
 	private ArrayList usuarios;
 	private ArrayList roles;
 	private HashMap historialAcciones;
+	private Numeradores numeradores;
 
 	/**
 	 * This class is a singleton, so the constructor is private 
 	 */
 	private Cysdreq() {
 		super();
+		initialize();
 	}
 	
+	/**
+	 * 
+	 */
+	private void initialize() {
+		getNumeradores().agregarNumerador(Requerimiento.class.getName());
+	}
+
 	public static Cysdreq getInstance() {
 		if (instance == null) {
 			instance = new Cysdreq();
@@ -177,4 +188,22 @@ public final class Cysdreq {
 		return null;
 					
 	}	
+
+	/**
+	 * @return
+	 */
+	public Numeradores getNumeradores() {
+		if (numeradores == null) {
+			numeradores = new Numeradores(); 
+		}
+		return numeradores;
+	}
+
+	/**
+	 * @param numeradores
+	 */
+	protected void setNumeradores(Numeradores numeradores) {
+		this.numeradores = numeradores;
+	}
+
 }

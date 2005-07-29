@@ -4,10 +4,13 @@
 package com.cysdreq.modelo.req;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Miembro;
 import com.cysdreq.modelo.flow.Estado;
 import com.cysdreq.modelo.flow.Transicion;
+import com.cysdreq.util.PersistentMap;
 
 /**
  * @author Daniel Nanni
@@ -15,15 +18,12 @@ import com.cysdreq.modelo.flow.Transicion;
  */
 public class Requerimiento {
 
+	private int id;
 	private TipoRequerimiento tipo;
 	private Estado estadoActual;
 	private Miembro propietario;
 
-	/**
-	 * Propiedades comunes a todos los estados del requerimiento,
-	 * se guardan en el estado para poder mantener la historia de 
-	 * cómo fueron cambiando
-	 */
+	// Propiedades comunes a todos los estados del requerimiento
 	private ArrayList propiedades;
 
 	public Requerimiento() {
@@ -42,6 +42,11 @@ public class Requerimiento {
 		this.setEstadoActual(estadoInicial);
 		this.setPropietario(propietario);
 		this.setPropiedades(propiedades);
+
+		// Setea el próximo Id a usar
+		Cysdreq cysdreq = Cysdreq.getPersistentInstance();
+		int nextId = cysdreq.getNumeradores().getNextId(Requerimiento.class.getName());
+		this.setId(nextId);
 	}
 
 	public Estado getEstadoActual() {
@@ -82,6 +87,48 @@ public class Requerimiento {
 
 	protected void setPropiedades(ArrayList propiedades) {
 		this.propiedades = propiedades;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int i) {
+		id = i;
+	}
+
+	/**
+	 * @param propiedadesGenerales
+	 */
+	public void setPropiedadesGenerales(PersistentMap propiedadesGenerales) {
+		Iterator iter = getPropiedades().iterator();
+		while (iter.hasNext()) {
+			Propiedad propiedad = (Propiedad) iter.next();
+			
+			String key = propiedad.getTipo().getNombre();
+			String valor = (String) propiedadesGenerales.get(key);
+			if (valor == null) {
+				valor = "";
+			}
+			propiedad.setValor(valor);
+		}
+	}
+
+	/**
+	 * @param propiedadesEstado
+	 */
+	public void setPropiedadesEstadoActual(PersistentMap propiedadesEstado) {
+		Iterator iter = getEstadoActual().getPropiedades().iterator();
+		while (iter.hasNext()) {
+			Propiedad propiedad = (Propiedad) iter.next();
+			
+			String key = propiedad.getTipo().getNombre();
+			String valor = (String) propiedadesEstado.get(key);
+			if (valor == null) {
+				valor = "";
+			}
+			propiedad.setValor(valor);
+		}
 	}
 
 }

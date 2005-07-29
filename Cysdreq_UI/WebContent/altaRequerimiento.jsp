@@ -3,6 +3,7 @@
 
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 
 <html:html>
 <HEAD>
@@ -41,21 +42,46 @@ contentType="text/html; charset=ISO-8859-1"
 			<TD>
 			    <html:errors/>
 			    <html:form action="/altaRequerimiento.do">
-				<table height="300" border="0" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
-				<tr>
-					<td colspan="2">Seleccione el tipo de requerimiento a dar de alta</td>
-				</tr>
-				<tr>
-				    <td width="50%" align="center">
-				    	<html:select property="nombreTipoRequerimientoSeleccionado" size="10">
-				    		<html:optionsCollection property="tiposRequerimientos"/>
-				    	</html:select>
-				    </td>
-				</tr>				
-				<tr>
-				    <td width="50%" align="center" colspan="2"><html:submit>Continuar</html:submit></td>
-				</tr>
-				</table>
+					<table height="300" border="1" valign="center" align="center" width="80%" cellpadding=10 bgcolor="#999999">
+						<tr>
+							<td>Seleccione el tipo de requerimiento a dar de alta:</td>
+						    <td align="center">
+						    	<html:select property="nombreTipoRequerimientoSeleccionado">
+						    		<html:optionsCollection property="tiposRequerimientos"/>
+						    	</html:select>
+						    </td>
+						    <td align="center">
+						    	<html:submit property="action">
+									Seleccionar Tipo
+						    	</html:submit>
+						    </td>
+						</tr>				
+						<tr>
+						    <td style="bgcolor:white" align="center" colspan="3"></td>
+						</tr>
+						<logic:iterate name="formAltaRequerimiento" property="propiedadesGenerales" id="foo" indexId="counter">
+							<tr>
+								<td><b><bean:write name="formAltaRequerimiento" property='<%= "propiedadesGenerales[" + counter + "].label" %>'/></b></td>
+								<td colspan="2"><b><html:text size="50" name="formAltaRequerimiento" property='<%= "propiedadesGenerales[" + counter + "].value" %>'/></b></td>
+							</tr>
+						</logic:iterate>
+						<tr>
+						    <td style="bgcolor:white" align="center" colspan="3"></td>
+						</tr>
+						<logic:iterate name="formAltaRequerimiento" property="propiedadesEstado" id="foo" indexId="counter">
+							<tr>
+								<td><b><bean:write name="formAltaRequerimiento" property='<%= "propiedadesEstado[" + counter + "].label" %>'/></b></td>
+								<td colspan="2"><b><html:text size="50" name="formAltaRequerimiento" property='<%= "propiedadesEstado[" + counter + "].value" %>'/></b></td>
+							</tr>
+						</logic:iterate>
+						<tr>
+						    <td align="center" colspan="3">
+						    	<html:submit property="action">
+									Dar de alta el requerimiento
+						    	</html:submit>
+						    </td>
+						</tr>
+					</table>
 				</html:form>
 			</TD>
 		</TR>

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.cysdreq.modelo.Miembro;
 import com.cysdreq.modelo.req.Requerimiento;
-import com.cysdreq.tareas.AdministradorDeTareas;
 
 /**
  * @author Daniel Nanni

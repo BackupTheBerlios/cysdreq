@@ -10,6 +10,7 @@ import com.cysdreq.modelo.Miembro;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.req.Requerimiento;
 import com.cysdreq.modelo.req.TipoRequerimiento;
+import com.cysdreq.util.PersistentMap;
 
 /**
  * @author Daniel Nanni
@@ -32,8 +33,13 @@ public class AgregarRequerimiento extends TipoAccion {
 		TipoRequerimiento tipo = (TipoRequerimiento) parametros.get("tipoRequerimiento");
 		Miembro propietario = (Miembro) parametros.get("propietario");
 		Miembro responsable = (Miembro) parametros.get("responsable");
-		
+		PersistentMap propiedadesGenerales = (PersistentMap) parametros.get("propiedadesGenerales");
+		PersistentMap propiedadesEstado = (PersistentMap) parametros.get("propiedadesEstado");
+
 		Requerimiento req = tipo.nuevoRequerimiento(propietario, responsable);
+		
+		req.setPropiedadesGenerales(propiedadesGenerales);
+		req.setPropiedadesEstadoActual(propiedadesEstado);
 		
 		proyecto.agregarRequerimiento(req);
 	}

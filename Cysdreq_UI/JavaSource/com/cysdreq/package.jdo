@@ -38,5 +38,8 @@
   </package>
   <package name="com.cysdreq.util">
     <class name="PersistentArrayList" requires-extent="true" identity-type="datastore"/>
+    <class name="PersistentMap" requires-extent="true" identity-type="datastore"/>
+    <class name="Numerador" requires-extent="true" identity-type="datastore"/>
+    <class name="Numeradores" requires-extent="true" identity-type="datastore"/>
   </package>
 </jdo>

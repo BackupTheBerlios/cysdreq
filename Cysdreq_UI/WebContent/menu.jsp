@@ -1,6 +1,6 @@
 <TABLE>
 	<TR>
-		<TD border=1><b>Acciones del Sistema</b></TD>
+		<TD><b>Acciones del Sistema</b></TD>
 	</TR>
 	<TR>
 		<TD>
@@ -17,16 +17,6 @@
 			<html:link page="/agregarRolSistema.jsp">Agregar Rol</html:link>
 		</TD>
 	</TR>
-	<TR>
-		<TD>
-			<html:link page="/altaRequerimiento.jsp">Dar de alta un requerimiento</html:link>
-		</TD>
-	</TR>	
-	<TR>
-		<TD>
-			<html:link page="/altaRequerimiento.jsp">Listado de requerimientos</html:link>
-		</TD>
-	</TR>		
 	<TR>	
 		<TD>
 			<html:link page="/ingresarAProyecto.jsp">Ingresar a un proyecto</html:link>
@@ -38,10 +28,10 @@
 		</TD>
 	</TR>		
 	<TR>
-		<TD border=1><BR></TD>
+		<TD><BR></TD>
 	</TR>
 	<TR>
-		<TD border=1><b>Acciones del Proyecto</b></TD>
+		<TD><b>Acciones del Proyecto</b></TD>
 	</TR>
 	<TR>	
 		<TD>
@@ -53,6 +43,11 @@
 			<html:link page="/altaRequerimiento.jsp">Agregar un requerimiento al proyecto</html:link>
 		</TD>
 	</TR>	
+	<TR>
+		<TD>
+			<html:link page="/listadoRequerimientos.jsp">Listado de requerimientos</html:link>
+		</TD>
+	</TR>		
 	<TR>	
 		<TD>
 			<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>

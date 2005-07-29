@@ -15,11 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 import com.cysdreq.loader.SessionManager;
 import com.cysdreq.modelo.Cysdreq;
 import com.cysdreq.modelo.Proyecto;
 import com.cysdreq.modelo.req.TipoRequerimiento;
+import com.cysdreq.util.LabelAndValueListHelper;
+import com.cysdreq.util.PersistentArrayList;
+import com.cysdreq.util.PersistentMap;
 
 import cysdreq_ui.actions.LogonAction;
 import cysdreq_ui.bean.GenericBean;
@@ -33,15 +37,23 @@ import cysdreq_ui.bean.UserBean;
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class FormAltaRequerimiento extends ActionForm {
+
+	public static final String ACCION_SELECCIONAR_TIPO = "Seleccionar Tipo";
+	public static final String ACCION_GUARDAR_REQUERIMIENTO = "Dar de alta el requerimiento";
+
+	private String action = "";
 	private ArrayList tiposRequerimientos = null;
-	private String nombreTipoRequerimientoSeleccionado = null; 
+	private String nombreTipoRequerimientoSeleccionado = null;
+	private ArrayList propiedadesGenerales = new ArrayList();
+	private ArrayList propiedadesEstado = new ArrayList();
+ 
 
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 
 		// Reset values are provided as samples only. Change as appropriate.
 
 		nombreTipoRequerimientoSeleccionado ="";
-		 
+
 		HttpSession session = request.getSession();
 		
 		try {
@@ -60,7 +72,7 @@ public class FormAltaRequerimiento extends ActionForm {
 			while (iter.hasNext()) {
 				TipoRequerimiento tipoRequerimiento = (TipoRequerimiento) iter.next();
 				
-				tiposRequerimientos.add(new GenericBean(tipoRequerimiento.getNombre()));
+				tiposRequerimientos.add(new LabelValueBean(tipoRequerimiento.getNombre(), tipoRequerimiento.getNombre()));
 			}
 				
 			SessionManager.commit();
@@ -108,6 +120,72 @@ public class FormAltaRequerimiento extends ActionForm {
 	 */
 	public ArrayList getTiposRequerimientos() {
 		return tiposRequerimientos;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getAction() {
+		return action;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setAction(String string) {
+		action = string;
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList getPropiedadesEstado() {
+		return propiedadesEstado;
+	}
+
+	public PersistentMap getPropiedadesEstadoPersistentes() {
+		PersistentMap propiedades = new PersistentMap(getPropiedadesEstado().size());
+
+		Iterator iter = getPropiedadesEstado().iterator();
+		while (iter.hasNext()) {
+			LabelValueBean prop = (LabelValueBean) iter.next();
+			propiedades.put(prop.getLabel(), prop.getValue());
+		}
+
+		return propiedades;
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList getPropiedadesGenerales() {
+		return propiedadesGenerales;
+	}
+
+	public PersistentMap getPropiedadesGeneralesPersistentes() {
+		PersistentMap propiedades = new PersistentMap(getPropiedadesGenerales().size());
+
+		Iterator iter = getPropiedadesGenerales().iterator();
+		while (iter.hasNext()) {
+			LabelValueBean prop = (LabelValueBean) iter.next();
+			propiedades.put(prop.getLabel(), prop.getValue());
+		}
+
+		return propiedades;
+	}
+
+	/**
+	 * @param list
+	 */
+	public void setPropiedadesEstado(ArrayList list) {
+		propiedadesEstado = list;
+	}
+
+	/**
+	 * @param list
+	 */
+	public void setPropiedadesGenerales(ArrayList list) {
+		propiedadesGenerales = list;
 	}
 
 }
