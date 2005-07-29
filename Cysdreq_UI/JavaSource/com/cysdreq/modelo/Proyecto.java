@@ -4,8 +4,14 @@
 package com.cysdreq.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
+import com.cysdreq.modelo.flow.TipoEstado;
 import com.cysdreq.modelo.req.Requerimiento;
 import com.cysdreq.modelo.req.TipoRequerimiento;
 
@@ -36,7 +42,7 @@ public class Proyecto {
 		this.setNombre(nombre);
 	}
 
-	protected ArrayList getMiembros() {
+	public ArrayList getMiembros() {
 		if (miembros == null)
 			miembros = new ArrayList();
 		return miembros;
@@ -46,7 +52,7 @@ public class Proyecto {
 		this.miembros = miembros;
 	}
 
-	protected ArrayList getRequerimientos() {
+	public ArrayList getRequerimientos() {
 		if (requerimientos == null)
 			requerimientos = new ArrayList();		
 		return requerimientos;
@@ -143,6 +149,24 @@ public class Proyecto {
 		
 		return null;		
 		
+	}
+
+	public ArrayList getTiposDeEstados(){
+
+		Set set = new TreeSet();
+
+		Iterator iter = this.getTiposRequerimientos().iterator();	
+		while (iter.hasNext()) {
+			TipoRequerimiento tipoRequerimiento = (TipoRequerimiento) iter.next();
+
+			Iterator iterator = tipoRequerimiento.getTiposDeEstados().iterator();
+			while (iterator.hasNext()){
+				TipoEstado tipoEstado = (TipoEstado) iterator.next();
+				set.add(tipoEstado.getNombre());
+			}	
+		}	
+
+		return new ArrayList(Arrays.asList(set.toArray()));
 	}
 	
 }

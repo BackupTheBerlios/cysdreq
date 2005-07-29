@@ -45,7 +45,7 @@
 	</TR>	
 	<TR>
 		<TD>
-			<html:link page="/listadoRequerimientos.jsp">Listado de requerimientos</html:link>
+			<html:link page="/listadoRequerimientos.do">Listado de requerimientos</html:link>
 		</TD>
 	</TR>		
 	<TR>	

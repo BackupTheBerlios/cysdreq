@@ -58,7 +58,7 @@ public class Estado {
 		this.responsable = responsable;
 	}
 
-	protected TipoEstado getTipo() {
+	public TipoEstado getTipo() {
 		return tipo;
 	}
 
