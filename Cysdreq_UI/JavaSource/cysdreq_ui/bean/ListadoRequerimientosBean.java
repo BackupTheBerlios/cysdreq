@@ -14,13 +14,15 @@ package cysdreq_ui.bean;
  */
 public class ListadoRequerimientosBean {
 	
+	private int idRequerimiento;
 	private String nombreTipo;
 	private String estado;
 	private String propietario;
 	private String responsable;	
 
-	public ListadoRequerimientosBean(String n, String e, String p, String r) {
+	public ListadoRequerimientosBean(int i, String n, String e, String p, String r) {
 
+		idRequerimiento = i;
 		nombreTipo = n;
 		estado = e;
 		propietario = p;
@@ -82,6 +84,20 @@ public class ListadoRequerimientosBean {
 	 */
 	public void setResponsable(String string) {
 		responsable = string;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getIdRequerimiento() {
+		return idRequerimiento;
+	}
+
+	/**
+	 * @param i
+	 */
+	public void setIdRequerimiento(int i) {
+		idRequerimiento = i;
 	}
 
 }

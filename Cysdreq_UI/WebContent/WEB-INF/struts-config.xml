@@ -40,6 +40,8 @@
 		</form-bean>
 		<form-bean name="formEliminarProyecto" type="cysdreq_ui.forms.FormEliminarProyecto">
 		</form-bean>
+		<form-bean name="formDetallesRequerimiento" type="cysdreq_ui.forms.FormDetallesRequerimiento">
+		</form-bean>
 	</form-beans>
 
 	<!-- Global Exceptions -->
@@ -103,6 +105,8 @@
 		<action name="formListadoRequerimientos" path="/listadoRequerimientos" scope="request" type="cysdreq_ui.actions.ListadoRequerimientosAction" input="/listadoRequerimientos.do">
 			<forward name="error" path="/listadoRequerimientos.jsp">
 			</forward>
+			<forward name="success" path="/detallesRequerimiento.jsp">
+			</forward>
 		</action>
 		<action name="formTiposDeRequerimientos" path="/tiposDeRequerimientos" scope="request" type="cysdreq_ui.actions.TiposDeRequerimientosAction" input="/tiposDeRequerimientos.jsp">
 			<forward name="error" path="/tiposDeRequerimientos.jsp">
@@ -113,6 +117,8 @@
 		<action name="formEliminarProyecto" path="/eliminarProyecto" scope="request" type="cysdreq_ui.actions.EliminarProyectoAction" input="/eliminarProyecto.jsp">
 			<forward name="error" path="/eliminarProyecto.jsp">
 			</forward>
+		</action>
+		<action name="formDetallesRequerimiento" path="/detallesRequerimiento" scope="request" type="cysdreq_ui.actions.DetallesRequerimientoAction" input="/detallesRequerimiento.jsp">
 		</action>
 	</action-mappings>
 

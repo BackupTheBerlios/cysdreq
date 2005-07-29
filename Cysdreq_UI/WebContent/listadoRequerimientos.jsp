@@ -47,19 +47,19 @@
 										<td>Filtro por estado</td>
 									</tr>
 									<tr>
-									    <td width="50%" align="left">
+									    <td width="33%" align="left">
 								    	<html:select property="nombreTipoRequerimientoSeleccionado" size="1">
 								    		<html:option value="">Todos</html:option>
 								    		<html:optionsCollection property="tiposRequerimientos"/>
 								    	</html:select>
 									    </td>
-									    <td width="50%" align="left">
+									    <td width="33%" align="left">
 								    	<html:select property="nombrePropietarioSeleccionado" size="1">
 								    		<html:option value="">Todos</html:option>
 								    		<html:optionsCollection property="propietarios"/>
 								    	</html:select>
 									    </td>
-									    <td width="50%" align="left">
+									    <td width="34%" align="left">
 								    	<html:select property="nombreTipoEstadoSeleccionado" size="1">
 								    		<html:option value="">Todos</html:option>
 								    		<html:optionsCollection property="tiposEstados"/>
@@ -67,7 +67,7 @@
 									    </td>									    									    
 									</tr>
 								<tr>
-								    <td width="50%" align="right" colspan="3"><html:submit>Buscar</html:submit></td>
+								    <td width="100%" align="right" colspan="3"><html:submit property="action">Buscar</html:submit></td>
 								</tr>									
 								</table>
 								<br>
@@ -76,6 +76,7 @@
 										<td colspan="3"><b>Listado de requerimientos<b></td>
 									</tr>
 									<tr>
+										<td><b>Id<b></td>
 										<td><b>Nombre tipo requerimiento<b></td>
 										<td><b>Estado Actual<b></td>
 										<td><b>Propietario<b></td>
@@ -83,6 +84,7 @@
 									</tr>									
 									<logic:iterate name="formListadoRequerimientos" property="requerimientosReales" id="foo" indexId="counter">
 											<tr>
+												<td><html:submit property="action"><bean:write name="formListadoRequerimientos" property='<%= "requerimientosReales[" + counter + "].idRequerimiento" %>'/></html:submit></td></td>
 												<td><bean:write name="formListadoRequerimientos" property='<%= "requerimientosReales[" + counter + "].nombreTipo" %>'/></td>
 												<td><bean:write name="formListadoRequerimientos" property='<%= "requerimientosReales[" + counter + "].estado" %>'/></td>
 												<td><bean:write name="formListadoRequerimientos" property='<%= "requerimientosReales[" + counter + "].propietario" %>'/></td>
@@ -90,7 +92,8 @@
 											</tr>
 									</logic:iterate>
 								</table>
-								
+
+								<html:hidden property="idRequerimiento"/>								
 								<html:hidden property="nombreTipo"/>
 								<html:hidden property="estado"/>
 								<html:hidden property="propietario"/>

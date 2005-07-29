@@ -83,7 +83,7 @@ public class Requerimiento {
 		transicion.ejecutar(this, miembro);
 	}
 
-	protected ArrayList getPropiedades() {
+	public ArrayList getPropiedades() {
 		return propiedades;
 	}
 

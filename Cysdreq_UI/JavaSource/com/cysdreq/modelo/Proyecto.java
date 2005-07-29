@@ -6,6 +6,7 @@ package com.cysdreq.modelo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Proyecto {
 	private String nombre;
 	private ArrayList roles;
 	private ArrayList miembros;
-	private ArrayList requerimientos;
+	private HashMap requerimientos;
 	private ArrayList tiposRequerimientos;
 	
 	/**
@@ -52,13 +53,13 @@ public class Proyecto {
 		this.miembros = miembros;
 	}
 
-	public ArrayList getRequerimientos() {
+	public HashMap getRequerimientos() {
 		if (requerimientos == null)
-			requerimientos = new ArrayList();		
+			requerimientos = new HashMap();		
 		return requerimientos;
 	}
 
-	protected void setRequerimientos(ArrayList requerimientos) {
+	protected void setRequerimientos(HashMap requerimientos) {
 		this.requerimientos = requerimientos;
 	}
 
@@ -99,7 +100,7 @@ public class Proyecto {
 	}
 
 	public void agregarRequerimiento(Requerimiento req) {
-		this.getRequerimientos().add(req);
+		this.getRequerimientos().put(new Integer(req.getId()), req);
 	}
 	
 	public void agregarTipoRequerimiento(TipoRequerimiento tipo) {
@@ -169,4 +170,7 @@ public class Proyecto {
 		return new ArrayList(Arrays.asList(set.toArray()));
 	}
 	
+	public Requerimiento getRequerimiento(int id) {
+		return (Requerimiento) getRequerimientos().get(new Integer(id));
+	}
 }

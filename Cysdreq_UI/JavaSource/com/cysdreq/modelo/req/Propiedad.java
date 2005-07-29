@@ -27,7 +27,7 @@ public class Propiedad {
 		this.setTipo(tipo);
 	}
 
-	protected TipoPropiedad getTipo() {
+	public TipoPropiedad getTipo() {
 		return tipo;
 	}
 

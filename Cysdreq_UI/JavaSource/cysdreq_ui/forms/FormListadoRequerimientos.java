@@ -39,11 +39,14 @@ import cysdreq_ui.bean.UserBean;
  */
 public class FormListadoRequerimientos extends ActionForm {
 
+	private String action;
+	
 	private String responsable = null;
 	private String nombreTipo = null;
 	private String estado = null;
 	private String propietario = null;
-
+	private int idRequerimiento;
+	
 	private ArrayList requerimientosReales = new ArrayList();	
 	private ArrayList tiposRequerimientos  = new ArrayList();
 	private String nombreTipoRequerimientoSeleccionado = "";
@@ -149,23 +152,7 @@ public class FormListadoRequerimientos extends ActionForm {
 	
 			Cysdreq cysdreq = Cysdreq.getPersistentInstance();
 			Proyecto proyecto = cysdreq.getProyecto(userBean.getNombreProyecto());	
-/*			
-			// arma el ArrayList de requerimientos
-			ArrayList requerimientosExistentes = proyecto.getRequerimientos();
-			requerimientosReales = new ArrayList();
-			
-			Iterator iterator = requerimientosExistentes.iterator();
-			while (iterator.hasNext()) {
-				Requerimiento requerimiento = (Requerimiento) iterator.next();
-				
-				//String nombreTipoReq = requerimiento.getTipo().getNombre();
-				String nombreEstadoAct = requerimiento.getEstadoActual().getTipo().getNombre();
-				String nombrePropietario = requerimiento.getPropietario().getUsuario().getNombre();
-				String nombreResponsable = requerimiento.getEstadoActual().getResponsable().getUsuario().getNombre();
 
-				requerimientosReales.add(new ListadoRequerimientosBean("nombreTipoReq", nombreEstadoAct, nombrePropietario, nombreResponsable));
-			}
-*/
 			// arma el ArrayList de tipos de requuerimientos
 			ArrayList tiposRequerimientosExistentes = proyecto.getTiposRequerimientos();
 			tiposRequerimientos = new ArrayList();
@@ -337,6 +324,34 @@ public class FormListadoRequerimientos extends ActionForm {
 	 */
 	public void setPropietariosReales(ArrayList list) {
 		propietariosReales = list;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getIdRequerimiento() {
+		return idRequerimiento;
+	}
+
+	/**
+	 * @param i
+	 */
+	public void setIdRequerimiento(int i) {
+		idRequerimiento = i;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getAction() {
+		return action;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setAction(String string) {
+		action = string;
 	}
 
 }
