@@ -41,6 +41,11 @@ contentType="text/html; charset=ISO-8859-1"
 			</TBODY>
 		</TABLE>
 		<html:submit>Submit</html:submit>
+		<br>
+		<br>
+		<br>
+		<br>
+		<html:link page="/initTestData.do">Inicializar la BD con data de testing</html:link>
 	</html:form>
 </P>
 </BODY>

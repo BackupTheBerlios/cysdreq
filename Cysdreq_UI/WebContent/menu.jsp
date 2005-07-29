@@ -1,5 +1,5 @@
-<TABLE>
-	<TR>
+<TABLE style="TableStyle">
+	<TR style="TitleStyle">
 		<TD><b>Acciones del Sistema</b></TD>
 	</TR>
 	<TR>
@@ -35,38 +35,40 @@
 	<TR>
 		<TD><BR></TD>
 	</TR>
-	<TR>
-		<TD><b>Acciones del Proyecto</b></TD>
-	</TR>
-	<TR>	
-		<TD>
-			<html:link page="/agregarMiembro.jsp">Agregar un miembro al proyecto</html:link>
-		</TD>
-	</TR>
-	<TR>	
-		<TD>
-			<html:link page="/altaRequerimiento.jsp">Agregar un requerimiento al proyecto</html:link>
-		</TD>
-	</TR>	
-	<TR>
-		<TD>
-			<html:link page="/listadoRequerimientos.do">Listado de requerimientos</html:link>
-		</TD>
-	</TR>		
-	<TR>	
-		<TD>
-			<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>
-		</TD>
-	</TR>
-	<TR>	
-		<TD>
-			<html:link page="/tiposDeRequerimientos.jsp">Ver/Modificar/Eliminar tipos de requerimientos del proyecto</html:link>
-		</TD>
-	</TR>	
-	<TR>	
-		<TD>
-			<html:link page="/tipoRequerimiento.jsp">Agregar un tipo de requerimiento al proyecto</html:link>
-		</TD>
-	</TR>	
+	<logic:present name="user" property="nombreProyecto" scope="session">
+		<TR>
+			<TD><b>Acciones del Proyecto</b></TD>
+		</TR>
+		<TR>	
+			<TD>
+				<html:link page="/agregarMiembro.jsp">Agregar un miembro al proyecto</html:link>
+			</TD>
+		</TR>
+		<TR>	
+			<TD>
+				<html:link page="/altaRequerimiento.jsp">Agregar un requerimiento al proyecto</html:link>
+			</TD>
+		</TR>	
+		<TR>
+			<TD>
+				<html:link page="/listadoRequerimientos.do">Listado de requerimientos</html:link>
+			</TD>
+		</TR>		
+		<TR>	
+			<TD>
+				<html:link page="/agregarRolProyecto.jsp">Agregar un rol al proyecto</html:link>
+			</TD>
+		</TR>
+		<TR>	
+			<TD>
+				<html:link page="/tiposDeRequerimientos.jsp">Ver/Modificar/Eliminar tipos de requerimientos del proyecto</html:link>
+			</TD>
+		</TR>	
+		<TR>	
+			<TD>
+				<html:link page="/tipoRequerimiento.jsp">Agregar un tipo de requerimiento al proyecto</html:link>
+			</TD>
+		</TR>	
+	</logic:present>
 	
 </TABLE>
