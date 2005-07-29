@@ -82,6 +82,7 @@ public class AltaRequerimientoAction extends Action {
 				if (nombreTipo == null) {
 					errors.add(	"requerimiento", new ActionError("errors.requerimiento.tipoNoSeleccionado"));
 				} else {
+					session.setAttribute("nombreTipoReqSelHidden", nombreTipo);
 					formAltaRequerimiento.setNombreTipoReqSelHidden(nombreTipo);
 				}
 

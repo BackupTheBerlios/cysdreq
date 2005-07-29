@@ -60,13 +60,12 @@ public class ListadoRequerimientosAction extends Action {
 			// arma el ArrayList de requerimientos
 			ArrayList requerimientosExistentes = proyecto.getRequerimientos();
 			formListadoRequerimientos.setRequerimientosReales(new ArrayList());
-		
+
 			Iterator iterator = requerimientosExistentes.iterator();
 			while (iterator.hasNext()) {
 				Requerimiento requerimiento = (Requerimiento) iterator.next();
-			
-				//String nombreTipoReq = requerimiento.getTipo().getNombre();
-				String nombreTipoReq = "Primer tipo de prueba";
+
+				String nombreTipoReq = requerimiento.getTipo().getNombre();
 				String nombreEstadoAct = requerimiento.getEstadoActual().getTipo().getNombre();
 				String nombrePropietario = requerimiento.getPropietario().getUsuario().getNombre();
 				String nombreResponsable = requerimiento.getEstadoActual().getResponsable().getUsuario().getNombre();
@@ -83,7 +82,6 @@ public class ListadoRequerimientosAction extends Action {
 				if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals("") && incluir) {
 					
 					if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals(nombreTipoReq)){
-					//if (!formListadoRequerimientos.getNombreTipoRequerimientoSeleccionado().equals("Primer tipo de prueba")){
 						incluir = false;
 					}
 				}

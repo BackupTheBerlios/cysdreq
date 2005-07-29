@@ -60,7 +60,15 @@ public class FormAltaRequerimiento extends ActionForm {
 
 		HttpSession session = request.getSession();
 
-		nombreTipoRequerimientoSeleccionado ="";
+		nombreTipoRequerimientoSeleccionado = "";
+
+		// Setea el tipo de requerimiento seleccionado
+		String nombreTipo = (String) session.getAttribute("nombreTipoReqSelHidden");
+		if (nombreTipo != null && nombreTipo.length() > 0) {
+			setNombreTipoReqSelHidden(nombreTipo);
+			setNombreTipoRequerimientoSeleccionado(nombreTipo);
+			session.removeAttribute("nombreTipoReqSelHidden");
+		}
 
 		try {
 			// obtiene la transacción asociada al administrador de persistencia.
